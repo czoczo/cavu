@@ -4,7 +4,9 @@ import { rehypeAccessibleEmojis } from 'rehype-accessible-emojis';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://casavue.app',
+	//site: 'https://casavue.app',
+	site: 'https://czoczo.github.io',
+	base: '/cavu',
 	markdown: {
 	  // Applied to .md and .mdx files
 	  rehypePlugins: [rehypeAccessibleEmojis],
