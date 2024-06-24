@@ -1,0 +1,87 @@
+---
+title: Docker Compose
+description: Bbb.
+sidebar:
+  order: 20
+---
+
+import { Aside, Code, Tabs, TabItem } from '@astrojs/starlight/components';
+import importedDockerCompose from '../../../../../deployment/docker-compose/docker-compose.yaml?raw';
+
+CasaVue is ment to be a index frontpage for applications hosted on a Kubernetes instance. Nevertheless, it can be run on [Docker](https://www.docker.com/) alone.
+
+Dynamic discovery of items works only with [Kubernetes](https://kubernetes.io). While running on plain Docker, items displayed on CasaVue may only be set using [static YAML configuration file](/configuration/file#static-items-definitions).
+
+Docker-compose file is available to ease the process of starting and configuring CasaVue.
+
+## Usage
+Create a new directory in your workspace and download `docker-compose.yaml` file for CasaVue App:
+<Tabs>
+  <TabItem label="curl">
+```console
+mkdir CasaVue && cd CasaVue && \
+curl https://...raw/docker-compose.yaml
+```
+  </TabItem>
+  <TabItem label="wget">
+```console
+mkdir CasaVue && cd CasaVue && \
+wget https://...raw/docker-compose.yaml
+```
+  </TabItem>
+</Tabs>
+
+### Running main service
+Starting service
+```console
+docker compose up
+```
+<Aside>After running above command, service should be available under [`http://127.0.0.1:8080/`](http://127.0.0.1:8080/) in your web browser.</Aside>
+
+Stoping service
+```console
+docker compose down
+```
+### Editing configuration
+Since [defualt Docker Compose file for CasaVue](/deployment/20_deploy_docker#compose-file) utilises [volumes](https://docs.docker.com/compose/compose-file/07-volumes/) for persisting application configuration, access to configuration files is difficult. To ease the process, compose file contains special [profiles](https://docs.docker.com/compose/profiles/) allowing to open configuration files using [vim](https://www.vim.org/).
+<Aside type="caution" title="Warning!">
+  You have to [start service](/deployment/20_deploy_docker/#running-main-service) at least once, to generate default configuration files!
+</Aside>
+Editing `main.yaml` config file
+```console
+docker compose run edit-main; reset
+```
+Editing `items.yaml` config file
+```console
+docker compose run edit-items; reset
+```
+<Aside type="tip" title="For VIM newbies">
+  In case you never used VIM before, here is a quick start:
+  - Press `i` on keyboard for `insert` mode allowing you to type things in document.
+  - Press `ESC` key for exiting `insert` mode.
+  - Type `:wq` to save your changes and exit.
+  - Type `:q!` to exit without saving changes.
+
+  Should you want to learn more about VIM, visit https://openvim.com/ to go through online tutorial.
+</Aside>
+### Static mode
+For whatever reason should you want to render CasaVue dashboard to HTML static content (e.g. for hosting on [GitHub Pages](https://pages.github.com/)), you can use CasaVue static generation mode. 
+<Aside type="tip">
+  [Edit items configuration file](/deployment/20_deploy_docker/#editing-configuration) before running the command in order to influence content of generated dashboard.
+</Aside>
+
+Generating static dashboard webpage:
+```console
+docker compose run static
+```
+Directory `dist` should be created and contain generated static webpage.
+While being inside it, start HTTP server to test dashboard, for example:
+```console
+cd dist && \
+python -m http.server 8001
+```
+There is more to choose from [big list of http static server one-liners ](https://gist.github.com/willurd/5720255).
+
+## Compose file
+For better understaning in case of advanced users, here is the content of CasaVue docker compose file:
+<Code code={importedDockerCompose} lang="yaml" title="docker-compose.yaml" />

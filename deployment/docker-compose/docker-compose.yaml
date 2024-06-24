@@ -1,0 +1,59 @@
+services:
+  
+  # main application
+  # run command:
+  # docker compose up
+  casavue:
+    image: casavue:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - casavue
+    volumes:
+      - casavue-config:/config
+
+  # enables editing main.yaml config file inside docker volume
+  # run comand:
+  # docker compose run edit-main && reset
+  edit-main:
+    image: casavue:latest
+    entrypoint: "/vim"
+    command: "/config/main.yaml"
+    volumes:
+      - casavue-config:/config
+    profiles:
+      - no-auto-start
+    stdin_open: true
+    tty: true
+
+  # enables editing items.yaml config file inside docker volume
+  # run command:
+  # docker compose run edit-main && reset
+  edit-items:
+    image: casavue:latest
+    entrypoint: "/vim"
+    command: "/config/items.yaml"
+    volumes:
+      - casavue-config:/config
+    profiles:
+      - no-auto-start
+    stdin_open: true
+    tty: true
+
+  # enables generating static HTML+JS (Vue) dashboard page
+  # run command:
+  # docker compose run static
+  static:
+    image: casavue:latest
+    command: "-static"
+    profiles:
+      - no-auto-start
+    volumes:
+      - casavue-config:/config
+      - ./static:/dist
+
+volumes:
+  casavue-config:
+
+networks:
+  casavue: {}

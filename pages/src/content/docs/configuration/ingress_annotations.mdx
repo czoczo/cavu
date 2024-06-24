@@ -1,0 +1,15 @@
+---
+title: Ingress configuration
+description: Influencing CasaVue via Ingress resource configuration.
+tableOfContents: false
+---
+
+Ingress annotations allow to influence dashboarditems behaviour and looks.
+
+| Annotation | Description | Required |
+| --- | --- | --- |
+| `casavue.app/enable` | Enables Ingress to show on dashboard. Has an effect only when `content_filter.item` in `main.yaml` is configured to `ingressAnnotation`. | false |
+| `casavue.app/name` | Overrides application item name. | false |
+| `casavue.app/description` | Sets decription for application item. | false |
+| `casavue.app/icon` | Overrides icon URL for application. | false |
+| `casavue.app/url` | Overrides application URL. | false |

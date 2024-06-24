@@ -1,0 +1,23 @@
+---
+title: Development setup
+description: Bbb.
+tableOfContents: false
+---
+
+# Backend
+```console
+cd frontend
+pnpm install
+pnpm run build
+cd ..
+go mod init casavue
+go mod tidy
+go build
+```
+
+# Frontend
+```console
+cd frontend
+pnpm install
+pnpm run dev
+```
