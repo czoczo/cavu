@@ -1,8 +1,6 @@
 > Progressive Web App home page dynamically indexing Kubernetes hosted applications (Ingress resources).
 
-<p align="center">
 ![Alt Text](/demo.gif)
-</p>
 
 CasaVue aims to:  
 - 🎨 Enable simple yet powerful theme customization.  
