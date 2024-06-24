@@ -1,4 +1,4 @@
-> Progressive Web App home page dynamically indexing Kubernetes hosted applications (Ingress resources).
+> Customizable Progressive Web App for dynamic indexing Kubernetes hosted applications (Ingress resources).
 
 ![Alt Text](/demo.gif)
 
