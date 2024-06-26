@@ -29,7 +29,9 @@ import { FileTree } from '@astrojs/starlight/components';
 
 ---
 
-It can be useful to familiarise yourself with the contents of a project's Git repository before starting work.
+It can be useful to familiarise yourself with the contents of a project's Git repository before starting work on code development.
+
+The following view should help you get started.
 
 [comment]: # (ls --group-directories-first -A1)
 <FileTree>
@@ -37,7 +39,7 @@ It can be useful to familiarise yourself with the contents of a project's Git re
   - main.yaml {srcCfgMain.slice(0, srcCfgMain.indexOf("\n"))}
   - items.yaml {srcCfgItems.slice(0, srcCfgItems.indexOf("\n"))}
 - deployment/ ways to deploy CasaVue
-  - docker-compose/ 
+  - docker-compose/ compose file for running standalone container and building static view
   - helm/ application Helm Chart
 - frontend/ GUI ([Vue](https://vuejs.org/)) source files for CasaVue
 - pages/ **this** docs - a standard [Starlight](https://starlight.astro.build/) project
