@@ -3,7 +3,7 @@ title: CasaVue
 description: Getting to know CasaVue.
 template: splash
 hero:
-  tagline: Dynamic web view of currently existing Ingress resources, in form of Kubernetes controller. 
+  tagline: Customizable progressive web application for dynamic indexing of Kubernetes hosted applications (Ingress resources).
   image:
     file: ../../assets/logo_tilt.svg
   actions:
@@ -12,7 +12,7 @@ hero:
       icon: right-arrow
       variant: primary
     - text: Read the CasaVue docs
-      link: https://casavue.app/docs
+      link: /about/overview
       icon: external
 ---
 import { Card, CardGrid } from '@astrojs/starlight/components';
@@ -20,7 +20,7 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 <img style="margin: 0 auto;" src="/demo.gif"></img>
 <CardGrid stagger>
 	<Card title="Works out of the box!" icon="rocket">
-		Default config is fully functional. All you need is running Read [quick start](/deployment/quick_start/) to get going.
+		Default config is fully functional. All you need is running K8s. Read [quick start](/deployment/quick_start/) to get going.
 	</Card>
 	<Card title="Look and feel" icon="pencil">
 		No time to go through quick start? See [DEMO](https://demo.casavue.app) of Casavue configured to agragate demo pages from [Awesome Selfhosted listing](https://github.com/awesome-selfhosted/awesome-selfhosted). It's auto-refreshed every 24h.
@@ -32,6 +32,6 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 		Adjust theme color with live preview. Use auto-generated YAML config to persist changes over container reboots. 
 	</Card>
 	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+		Learn more in [the CasaVue Docs](/about/overview).
 	</Card>
 </CardGrid>
