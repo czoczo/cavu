@@ -69,13 +69,13 @@ tolerations: []
 affinity: {}
 
 # Overriding CasaVue default config.
-# Config description: https://casavue.app/docs/???? file_config
+# Config description: https://casavue.app/configuration/file/
 config:
   main: {}
     # customisation:
     #   name: MyName
     #   colors:
-    #     theme; "#bada55"
+    #     theme: "#bada55"
   items: []
     # - name: Duck Duck Go
     #   namespace: searching

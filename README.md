@@ -13,5 +13,5 @@ CasaVue aims to:
 ## Intrigued?
 A couple of options:
 - Having access to running K8s? Try a [quick install](https://casavue.app/deployment/quick_start/).
-- Read about the [features](https://dev.casavue.app/about/features/) of CasaVue.
+- Read about the [features](https://casavue.app/about/features/) of CasaVue.
 - See [CasaVue in action](https://demo.casavue.app) based on the services listed on [Awesome-Selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted) GitHub repo.
