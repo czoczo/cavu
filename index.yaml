@@ -3,6 +3,16 @@ entries:
   casavue:
   - apiVersion: v2
     appVersion: 0.0.65
+    created: "2024-06-29T18:14:32.959566622Z"
+    description: A Helm chart for Kubernetes
+    digest: 23b4206bbf7a07bb04f98e8c605326e23880e324764cde86bd5cc28b4750e50b
+    name: casavue
+    type: application
+    urls:
+    - https://github.com/czoczo/cavu/releases/download/casavue-0.0.6/casavue-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
+    appVersion: 0.0.65
     created: "2024-06-29T18:07:34.565706937Z"
     description: A Helm chart for Kubernetes
     digest: 7984f358a48960590f7bdda3509ec4c5b4ea69bbd3d35be03bee6b44a9c9122a
@@ -31,4 +41,4 @@ entries:
     urls:
     - https://github.com/czoczo/cavu/releases/download/casavue-0.0.3/casavue-0.0.3.tgz
     version: 0.0.3
-generated: "2024-06-29T18:07:34.565724199Z"
+generated: "2024-06-29T18:14:32.959606466Z"
