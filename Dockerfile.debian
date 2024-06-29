@@ -1,0 +1,36 @@
+# Dockerfile.distroless
+
+# first stage builds Vue frontend
+FROM node:18 as vue-build
+
+WORKDIR /build
+COPY ./frontend .
+
+RUN npm install -g pnpm && \
+  pnpm install && \
+  pnpm run build
+
+# second stage builds Go backend
+FROM golang:1.22-bookworm as go-build
+
+WORKDIR /go/src/app
+COPY ./config /go/src/app/config
+COPY ./*go .
+
+RUN go mod init casavue && \
+  go mod tidy && \
+  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /casavue . && \
+  curl -L 'https://github.com/heywoodlh/vim-builds/releases/download/9.1/vim-x86_64' -o /vim && \
+  chmod +x /vim && \
+  echo 'set nocompatible' > /.vimrc && \
+  touch /.exrc
+
+# final image
+FROM debian:trixie-slim
+
+COPY --from=go-build /casavue /vim .
+COPY --from=go-build /.vimrc /.exrc /root
+COPY --from=vue-build /build/dist ./frontend/dist/
+COPY --from=vue-build /build/src/assets ./frontend/src/assets
+
+ENTRYPOINT ["./casavue"]
