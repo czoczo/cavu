@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
         
       - name: Install Helm
         uses: azure/setup-helm@v4
@@ -32,7 +34,7 @@ jobs:
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         with:
-          charts_dir: deployment
+          charts_dir: deployment/helm
           skip_upload: true
         env:
            CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
