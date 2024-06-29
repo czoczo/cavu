@@ -34,8 +34,8 @@ jobs:
         with:
           charts_dir: ./deployment/helm
           skip_upload: true
-        #env:
-        #   CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        env:
+           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: file listing
         run: ls -al
