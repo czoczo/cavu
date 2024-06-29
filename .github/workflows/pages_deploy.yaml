@@ -20,6 +20,26 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+        
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+          #env:
+          #  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: file listing
+        run: ls -al
+        
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          charts_dir: ./deployment/helm
+          skip_upload: true
+        #env:
+        #   CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: file listing
+        run: ls -al
+        
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:
