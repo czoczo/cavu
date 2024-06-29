@@ -36,7 +36,7 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         with:
@@ -46,7 +46,21 @@ jobs:
            CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: file listing
-        run: ls -al
+        run: find docs/public
+        
+      - name: create folder
+        run: mkdir docs/public/helm-chart
+        
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: docs/public/helm-chart
+          sparse-checkout: |
+            index.yaml
+          sparse-checkout-cone-mode: false
+
+      - name: file listing
+        run: find docs/public
         
       - name: Install, build, and upload your site
         uses: withastro/action@v2
