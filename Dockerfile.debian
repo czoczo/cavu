@@ -28,6 +28,7 @@ RUN go mod init casavue && \
 # final image
 FROM debian:trixie-slim
 
+RUN apt-get update && apt-get install -y ca-certificates
 COPY --from=go-build /casavue /vim .
 COPY --from=go-build /.vimrc /.exrc /root
 COPY --from=vue-build /build/dist ./frontend/dist/
