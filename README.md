@@ -2,6 +2,11 @@
 ## Preview
 ![Alt Text](/demo.gif)
 
+## Demo
+If you would host every application from [Awesome-Selfhosted GitHub Pages](https://github.com/awesome-selfhosted/awesome-selfhosted) on your Kubernetes cluster, CasaVue installation on default settings would look similar to this:
+https://demo.casavue.app
+
+## Objectives
 CasaVue aims to:  
 - 🎨 Enable simple yet powerful theme customization.  
 - 👌Be a perfect choice for Kubernetes hosted applications index page.  
@@ -11,6 +16,6 @@ CasaVue aims to:
 
 ## Intrigued?
 A couple of options:
+- Read about [features](https://casavue.app/about/features/) of CasaVue.
 - Having access to running K8s? Try a [quick install](https://casavue.app/deployment/quick_start/).
-- Read about the [features](https://casavue.app/about/features/) of CasaVue.
-- See [CasaVue in action](https://demo.casavue.app) based on the services listed on [Awesome-Selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted) GitHub repo.
+- Further explore project by visiting [documentation](https://casavue.app/about/overview/).

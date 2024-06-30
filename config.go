@@ -37,14 +37,6 @@ type Data struct {
 	Customisation   Customisation `json:"customisation"`
 }
 
-// Item represents a single item in the YAML structure
-type Item struct {
-	Name        string `yaml:"name"`
-	Namespace   string `yaml:"namespace"`
-	Description string `yaml:"description"`
-	URL         string `yaml:"url"`
-}
-
 type Filter struct {
 	Mode    string `yaml:"mode"`
 	Pattern string `yaml:"pattern"`
@@ -64,6 +56,14 @@ type Config struct {
 	Customisation        Customisation       `yaml:"customisation"`
 	Content_filters ContentFilters `yaml:"content_filters"`
 	Logging         Logging        `yaml:"logging"`
+}
+
+// Item represents a single item in the YAML structure
+type Item struct {
+	Name        string `yaml:"name"`
+	Namespace   string `yaml:"namespace"`
+	Description string `yaml:"description"`
+	URL         string `yaml:"url"`
 }
 
 type StaticItems struct {
