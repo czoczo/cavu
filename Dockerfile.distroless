@@ -1,4 +1,4 @@
-# Dockerfile.distroless
+# Distroless minimal image - recommended for most usages
 
 # first stage builds Vue frontend
 FROM node:18 as vue-build

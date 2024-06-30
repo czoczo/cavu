@@ -1,4 +1,4 @@
-# Dockerfile.distroless
+# Debian based image, recommended for GitHub Actions usage
 
 # first stage builds Vue frontend
 FROM node:18 as vue-build
