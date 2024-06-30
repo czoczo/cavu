@@ -3,8 +3,10 @@
 ![Alt Text](/demo.gif)
 
 ## Demo
-If you would host every application from [Awesome-Selfhosted GitHub Pages](https://github.com/awesome-selfhosted/awesome-selfhosted) on your Kubernetes cluster, CasaVue installation on default settings would look similar to this:
-https://demo.casavue.app
+If you would host every application with demo from [Awesome-Selfhosted GitHub Pages](https://github.com/awesome-selfhosted/awesome-selfhosted) on your Kubernetes cluster, CasaVue installation on default settings would look similar to this:
+<p align="center">
+<a href="https://demo.casavue.app">https://demo.casavue.app</a>
+</p>
 
 ## Objectives
 CasaVue aims to:  
@@ -16,6 +18,6 @@ CasaVue aims to:
 
 ## Intrigued?
 A couple of options:
-- Read about [features](https://casavue.app/about/features/) of CasaVue.
-- Having access to running K8s? Try a [quick install](https://casavue.app/deployment/quick_start/).
-- Further explore project by visiting [documentation](https://casavue.app/about/overview/).
+- Read about the [features](https://casavue.app/about/features/) of CasaVue.
+- Having access to running K8s? Try [quick install](https://casavue.app/deployment/quick_start/).
+- Further explore project [home page](https://casavue.app).
