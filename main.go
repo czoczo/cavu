@@ -3,6 +3,7 @@
 package main
 
 import (
+	_ "embed"
 	"flag"
 	"net/http"
 	"time"
@@ -10,13 +11,15 @@ import (
 )
 
 const (
-	version         = "0.0.65"
 	configFilePath  = "./config/main.yaml"
 	itemsFilePath   = "./config/items.yaml"
 	staticFilesPath = "./frontend"
 	compiledVuePath = staticFilesPath + "/dist"
 	sourceVuePath   = staticFilesPath + "/src"
 )
+
+//go:embed VERSION_APP.txt
+var version string
 
 var config Config
 var staticItems StaticItems
