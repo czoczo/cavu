@@ -15,6 +15,7 @@ FROM golang:1.22-bookworm as go-build
 
 WORKDIR /go/src/app
 COPY ./config /go/src/app/config
+COPY ./*txt .
 COPY ./*go .
 
 RUN go mod init casavue && \
