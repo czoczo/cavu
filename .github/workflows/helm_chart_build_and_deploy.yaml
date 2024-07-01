@@ -40,6 +40,6 @@ jobs:
           skip_existing: true
         env:
            CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      
-      - name: Call pages build and deploy
-        uses: ./.github/workflows/pages_build_and_deploy.yaml
+
+  trigger-pages-build-and-deploy:
+    uses: ./.github/workflows/pages_build_and_deploy.yaml
