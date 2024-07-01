@@ -15,10 +15,14 @@ jobs:
   create-tag:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+        
       - name: Set variables
         run: |
           VER=$(cat VERSION_APP.txt | tr -dc '[0-9].')
           echo "VERSION=$VER" >> $GITHUB_ENV
+
       - name: Create tag
         uses: actions/github-script@v5
         with:
