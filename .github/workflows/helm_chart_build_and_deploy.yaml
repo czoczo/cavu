@@ -42,4 +42,5 @@ jobs:
            CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
   trigger-pages-build-and-deploy:
+    if: steps.build-helm-chart.outcome == 'success'
     uses: ./.github/workflows/pages_build_and_deploy.yaml
