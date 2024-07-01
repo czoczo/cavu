@@ -1,0 +1,33 @@
+#
+name: Create tag
+
+# Configures this workflow to run every time a change is pushed to the branch called `release`.
+on:
+  push:
+    branches: [ main ]
+    paths: [ VERSION_APP.txt ]
+  workflow_dispatch:
+
+# There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set variables
+        run: |
+          VER=$(cat VERSION)
+          echo "VERSION=$VER" >> $GITHUB_ENV
+      - name: Create tag
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ env.VERSION }}',
+              sha: context.sha
+            })
+
+  trigger-container-build-and-deploy:
+    needs: create-tag
+    uses: ./.github/workflows/container_build_and_deploy.yaml
