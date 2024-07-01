@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Set variables
         run: |
-          VER=$(cat VERSION)
+          VER=$(cat VERSION_APP.txt | tr -dc '[0-9].')
           echo "VERSION=$VER" >> $GITHUB_ENV
       - name: Create tag
         uses: actions/github-script@v5
