@@ -26,7 +26,7 @@ jobs:
           echo "VERSION=$VER" >> $GITHUB_ENV
 
       - name: Create tag
-        run: git tag ${{ env.VERSION }}
+        run: git tag ${{ env.VERSION }} && git push origin ${{ env.VERSION }}
 
       #- name: Create tag
       #  uses: actions/github-script@v5
