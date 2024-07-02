@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
         
       - name: Set variables
         run: |
@@ -24,15 +26,18 @@ jobs:
           echo "VERSION=$VER" >> $GITHUB_ENV
 
       - name: Create tag
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/${{ env.VERSION }}',
-              sha: context.sha
-            })
+        run: git tag ${{ env.VERSION }}
+
+      #- name: Create tag
+      #  uses: actions/github-script@v5
+      #  with:
+      #    script: |
+      #      github.rest.git.createRef({
+      #        owner: context.repo.owner,
+      #        repo: context.repo.repo,
+      #        ref: 'refs/tags/${{ env.VERSION }}',
+      #        sha: context.sha
+      #      })
 
   #trigger-container-build-and-deploy:
   #  needs: create-tag
