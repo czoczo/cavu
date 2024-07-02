@@ -3,9 +3,9 @@ name: Create tag
 
 # Configures this workflow to run every time a change is pushed to the branch called `release`.
 on:
-  push:
-    branches: [ main ]
-    paths: [ VERSION_APP.txt ]
+  #push:
+  #  branches: [ main ]
+  #  paths: [ VERSION_APP.txt ]
   workflow_dispatch:
 
 permissions: write-all
