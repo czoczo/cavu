@@ -34,6 +34,6 @@ jobs:
               sha: context.sha
             })
 
-  trigger-container-build-and-deploy:
-    needs: create-tag
-    uses: ./.github/workflows/container_build_and_deploy.yaml
+  #trigger-container-build-and-deploy:
+  #  needs: create-tag
+  #  uses: ./.github/workflows/container_build_and_deploy.yaml
