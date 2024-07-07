@@ -1,5 +1,7 @@
 # Debian based image, recommended for GitHub Actions usage
 
+LABEL org.opencontainers.image.description Container image for CasaVue application.
+
 # first stage builds Vue frontend
 FROM node:18 as vue-build
 
