@@ -1,26 +1,6 @@
 # Distroless minimal image - recommended for most usages
 
 LABEL org.opencontainers.image.description Container image for CasaVue application.
-
-# first stage builds Vue frontend
-FROM node:18 as vue-build
-
-WORKDIR /build
-COPY ./frontend .
-
-RUN npm install -g pnpm && \
-  pnpm install && \
-  pnpm run build
-
-# second stage builds Go backend
-FROM golang:1.22-bookworm as go-build
-
-WORKDIR /go/src/app
-COPY ./config /go/src/app/config
-COPY ./*txt .
-COPY ./*go .
-
-RUN go mod init casavue && \
   go mod tidy && \
   CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /casavue . && \
   curl -L 'https://github.com/heywoodlh/vim-builds/releases/download/9.1/vim-x86_64' -o /vim && \
