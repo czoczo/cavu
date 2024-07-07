@@ -21,16 +21,13 @@ COPY ./*go .
 RUN go mod init casavue && \
   go mod tidy && \
   CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /casavue . && \
-  curl -L 'https://github.com/heywoodlh/vim-builds/releases/download/9.1/vim-x86_64' -o /vim && \
-  chmod +x /vim && \
   echo 'set nocompatible' > /.vimrc && \
   touch /.exrc
 
 # final image
-FROM debian:trixie-slim
+FROM alpine:3.20.1
 
-RUN apt-get update && apt-get install -y ca-certificates
-COPY --from=go-build /casavue /vim .
+RUN apk add --no-cache vim
 COPY --from=go-build /.vimrc /.exrc /root
 COPY --from=vue-build /build/dist ./frontend/dist/
 COPY --from=vue-build /build/src/assets ./frontend/src/assets
