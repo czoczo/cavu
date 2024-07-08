@@ -1,0 +1,27 @@
+name: Piaskownica
+
+# Configures this workflow to run every time a change is pushed to the branch called `release`.
+on:
+  #push:
+  #  branches: [ main ]
+  #  paths: [ VERSION_APP.txt ]
+  workflow_dispatch:
+
+permissions: write-all
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: first
+        run: echo 'prawda' && true
+      #  run: echo 'falsz' && false
+
+  koniec:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: sprawdzacz
+        run: echo "doszedlem!"
+    
