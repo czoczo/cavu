@@ -18,13 +18,14 @@ jobs:
       real_status: ${{ steps.first.outcome }}
     steps:
       - name: first
-      #  run: echo 'prawda'
+        id: first
         run: echo 'falsz' && false
+      #  run: echo 'prawda'
 
   koniec_1:
     runs-on: ubuntu-latest
     needs: test_1
-    if: needs.test_1.outputs_real_status == 'success'
+    if: needs.test_1.outputs.real_status == 'success'
     steps:
       - name: sprawdzacz
         run: echo "doszedlem!"
@@ -32,12 +33,16 @@ jobs:
   test_2:
     runs-on: ubuntu-latest
     continue-on-error: true
+    outputs:
+      real_status: ${{ steps.second.outcome }}
     steps:
-      - name: testdwa
+      - name: second
+        id: second
         run: echo 'prawda'
 
   koniec_2:
     runs-on: ubuntu-latest
+    if: needs.test_2.outputs.real_status == 'success'
     needs: test_2
     steps:
       - name: sprawdzaczdwa
@@ -48,7 +53,8 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - test_1
+      - test_2
     steps:
       - name: sprawdzaczostateczny
-        run: echo "DOBRA BEDZIE OK! | ${{ needs.test_1.outputs_real_status }} |"
+        run: echo "DOBRA BEDZIE OK! | ${{ needs.test_1.outputs.real_status }} |  | ${{ needs.test_2.outputs.real_status }} |"
     
