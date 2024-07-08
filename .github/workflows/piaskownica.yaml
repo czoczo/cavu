@@ -13,7 +13,7 @@ permissions: write-all
 jobs:
   test_1:
     runs-on: ubuntu-latest
-    #continue-on-error: true
+    continue-on-error: true
     steps:
       - name: first
       #  run: echo 'prawda'
@@ -39,4 +39,11 @@ jobs:
     steps:
       - name: sprawdzaczdwa
         run: echo "doszedlem dwa!"
+    
+
+  ostatecznykoniec:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sprawdzaczostateczny
+        run: echo "DOBRA BEDZIE OK!"
     
