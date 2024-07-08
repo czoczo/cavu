@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: second
         id: second
-        run: echo 'prawda'
+        run: echo 'prawda' && false
 
   koniec_2:
     runs-on: ubuntu-latest
