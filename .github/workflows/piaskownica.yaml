@@ -46,7 +46,9 @@ jobs:
 
   ostatecznykoniec:
     runs-on: ubuntu-latest
+    needs:
+      - test_1
     steps:
       - name: sprawdzaczostateczny
-        run: echo "DOBRA BEDZIE OK!"
+        run: echo "DOBRA BEDZIE OK! | ${{ needs.test_1.outputs_real_status }} |"
     
