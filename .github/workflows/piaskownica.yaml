@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: first
         id: first
-        run: echo 'falsz' && false
+        run: echo 'falsz'
       #  run: echo 'prawda'
 
   koniec_1:
@@ -28,7 +28,7 @@ jobs:
     if: needs.test_1.outputs.real_status == 'success'
     steps:
       - name: sprawdzacz
-        run: echo "doszedlem!"
+        run: echo "doszedlem!" && false
     
   test_2:
     runs-on: ubuntu-latest
