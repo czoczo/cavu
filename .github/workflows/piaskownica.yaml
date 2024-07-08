@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: first
-        run: echo 'prawda' && true
-      #  run: echo 'falsz' && false
+      #  run: echo 'prawda' && true
+        run: echo 'falsz' && false
 
   koniec:
     runs-on: ubuntu-latest
