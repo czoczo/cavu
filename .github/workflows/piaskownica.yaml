@@ -13,7 +13,7 @@ permissions: write-all
 jobs:
   test_1:
     runs-on: ubuntu-latest
-    continue-on-error: true
+    #continue-on-error: true
     steps:
       - name: first
       #  run: echo 'prawda'
