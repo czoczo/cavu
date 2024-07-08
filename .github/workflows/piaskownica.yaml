@@ -56,5 +56,6 @@ jobs:
       - test_2
     steps:
       - name: sprawdzaczostateczny
+        if: contains(needs.*.outputs.real_status, 'success')
         run: echo "DOBRA BEDZIE OK! | ${{ needs.test_1.outputs.real_status }} |  | ${{ needs.test_2.outputs.real_status }} |"
     
