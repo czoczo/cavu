@@ -28,7 +28,7 @@ RUN go mod init casavue && \
 FROM alpine:3.20.1
 
 RUN apk add --no-cache vim
-COPY --from=go-build /.vimrc /.exrc /root
+COPY --from=go-build /.vimrc /.exrc /root/
 COPY --from=vue-build /build/dist ./frontend/dist/
 COPY --from=vue-build /build/src/assets ./frontend/src/assets
 
