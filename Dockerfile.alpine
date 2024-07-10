@@ -27,7 +27,7 @@ RUN go mod init casavue && \
 # final image
 FROM alpine:3.20.1
 
-WORDKIR /app
+WORKDIR /app
 
 RUN apk add --no-cache vim && \
   addgroup -g 10001 casavue && \
@@ -36,10 +36,11 @@ RUN apk add --no-cache vim && \
   
 USER casavue:casavue
 
-COPY --from=go-build /.vimrc /.exrc /root/
-COPY --from=vue-build /build/dist ./frontend/dist/
-COPY --from=vue-build /build/src/assets ./frontend/src/assets
+COPY --from=go-build /casavue /app/
+COPY --from=go-build /.vimrc /.exrc /home/casavue/
+COPY --chown=casavue:casavue --from=vue-build /build/dist ./frontend/dist/
+COPY --chown=casavue:casavue --from=vue-build /build/src/assets ./frontend/src/assets
 
-ENTRYPOINT ["./casavue"]
+ENTRYPOINT ["/app/casavue"]
 
 HEALTHCHECK --interval=5s --timeout=5s --retries=3 CMD wget localhost:8080 -q --spider
