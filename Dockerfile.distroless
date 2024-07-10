@@ -16,6 +16,9 @@ RUN npm install -g pnpm && \
 FROM golang:1.22-bookworm as go-build
 
 WORKDIR /go/src/app
+
+USER nonroot:nonroot
+
 COPY ./config /go/src/app/config
 COPY ./*txt .
 COPY ./*go .
