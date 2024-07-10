@@ -19,6 +19,9 @@ permissions: write-all
 # There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
 jobs:
   build-and-push-image:
+    strategy:
+      matrix:
+        flavour: [distroless, alpine]
     runs-on: ubuntu-latest
     # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
     #permissions:
@@ -38,10 +41,13 @@ jobs:
       #- name: Set up Docker Buildx
       #  uses: docker/setup-buildx-action@v3
         
-      - name: Set variables
+      - name: Set tag variables
         run: |
-          VER=$(cat VERSION_APP.txt | tr -dc '[0-9].')
-          echo "VERSION=$VER" >> $GITHUB_ENV
+          TAG="$(cat VERSION_APP.txt | tr -dc '[0-9].')-${{ matrix.flavour }}"
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          if [[ "${{ matrix.flavour }}" == "distroless" ]]; then
+            echo "LATEST=latest" >> $GITHUB_ENV
+          fi
 
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
@@ -56,8 +62,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            ${{ env.VERSION }}
-            latest
+            ${{ env.TAG }}
+            ${{ env.LATEST }}
             
       - name: Build and push Docker image
         id: push
@@ -73,7 +79,7 @@ jobs:
       - name: Run Trivy vulnerability scanner for created image
         uses: aquasecurity/trivy-action@0.23.0
         with:
-          image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}"
+          image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
           format: 'sarif'
           output: 'trivy-results.sarif'
 
@@ -89,6 +95,17 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+
+  create_app_version_tag:
+    runs-on: ubuntu-latest
+    needs:
+      - build-and-push-image
+    if: needs.build-and-push-image.result == 'success'
+    steps:
+      - name: Set version variable
+        run: |
+          VER=$(cat VERSION_APP.txt | tr -dc '[0-9].')
+          echo "VERSION=$VER" >> $GITHUB_ENV
 
       - name: Create tag
         uses: actions/github-script@v5
