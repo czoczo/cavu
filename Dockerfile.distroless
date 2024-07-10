@@ -20,11 +20,7 @@ COPY ./*go .
 
 RUN go mod init casavue && \
   go mod tidy && \
-  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /casavue . && \
-  curl -L 'https://github.com/heywoodlh/vim-builds/releases/download/9.1/vim-x86_64' -o /vim && \
-  chmod +x /vim && \
-  echo 'set nocompatible' > /.vimrc && \
-  touch /.exrc
+  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /casavue .
 
 # final image
 FROM gcr.io/distroless/static-debian12:nonroot
@@ -32,8 +28,6 @@ FROM gcr.io/distroless/static-debian12:nonroot
 WORKDIR /home/nonroot
 
 COPY --from=go-build /casavue /home/nonroot/
-COPY  --from=go-build /vim /
-COPY --from=go-build /.vimrc /.exrc /home/nonroot
 COPY --chown=nonroot:nonroot --from=vue-build /build/dist /home/nonroot/frontend/dist/
 COPY --chown=nonroot:nonroot --from=vue-build /build/src/assets /home/nonroot/frontend/src/assets
 

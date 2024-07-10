@@ -30,8 +30,8 @@ FROM alpine:3.20.1
 WORKDIR /app
 
 RUN apk add --no-cache vim && \
-  addgroup -g 10001 casavue && \
-  adduser -D -u 10001 -G casavue casavue && \
+  addgroup -g 65532 casavue && \
+  adduser -D -u 65532 -G casavue casavue && \
   chown -R casavue:casavue /app
   
 USER casavue:casavue

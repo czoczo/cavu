@@ -43,12 +43,12 @@ spec:
           volumeMounts:
           {{- end }}
           {{- if .Values.config.main }}      
-          - mountPath: /app/config/main.yaml
+          - mountPath: /home/nonroot/config/main.yaml
             subPath: main.yaml
             name: casavue-cfg-main
           {{- end }}
           {{- if .Values.config.items }}      
-          - mountPath: /app/config/items.yaml
+          - mountPath: /home/nonroot/config/items.yaml
             subPath: items.yaml
             name: casavue-cfg-items
           {{- end }}
