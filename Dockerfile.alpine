@@ -27,7 +27,15 @@ RUN go mod init casavue && \
 # final image
 FROM alpine:3.20.1
 
-RUN apk add --no-cache vim
+WORDKIR /app
+
+RUN apk add --no-cache vim && \
+  addgroup -g 10001 casavue && \
+  adduser -D -u 10001 -G casavue casavue && \
+  chown -R casavue:casavue /app
+  
+USER casavue:casavue
+
 COPY --from=go-build /.vimrc /.exrc /root/
 COPY --from=vue-build /build/dist ./frontend/dist/
 COPY --from=vue-build /build/src/assets ./frontend/src/assets
