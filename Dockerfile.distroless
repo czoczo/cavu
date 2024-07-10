@@ -3,6 +3,8 @@
 # first stage builds Vue frontend
 FROM node:18 as vue-build
 
+ARG TARGETARCH
+
 WORKDIR /build
 COPY ./frontend .
 
@@ -20,7 +22,7 @@ COPY ./*go .
 
 RUN go mod init casavue && \
   go mod tidy && \
-  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /casavue . && \
+  CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} go build -o /casavue . && \
   curl -L 'https://github.com/heywoodlh/vim-builds/releases/download/9.1/vim-x86_64' -o /vim && \
   chmod +x /vim && \
   echo 'set nocompatible' > /.vimrc && \
