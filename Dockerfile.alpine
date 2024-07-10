@@ -33,3 +33,5 @@ COPY --from=vue-build /build/dist ./frontend/dist/
 COPY --from=vue-build /build/src/assets ./frontend/src/assets
 
 ENTRYPOINT ["./casavue"]
+
+HEALTHCHECK --interval=5s --timeout=5s --retries=3 CMD wget localhost:8080 -q --spider
