@@ -1,6 +1,24 @@
 # Distroless minimal image - recommended for most usages
 
-LABEL org.opencontainers.image.description Container image for CasaVue application.
+# first stage builds Vue frontend
+FROM node:18 as vue-build
+
+WORKDIR /build
+COPY ./frontend .
+
+RUN npm install -g pnpm && \
+  pnpm install && \
+  pnpm run build
+
+# second stage builds Go backend
+FROM golang:1.22-bookworm as go-build
+
+WORKDIR /go/src/app
+COPY ./config /go/src/app/config
+COPY ./*txt .
+COPY ./*go .
+
+RUN go mod init casavue && \
   go mod tidy && \
   CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /casavue . && \
   curl -L 'https://github.com/heywoodlh/vim-builds/releases/download/9.1/vim-x86_64' -o /vim && \
@@ -9,11 +27,14 @@ LABEL org.opencontainers.image.description Container image for CasaVue applicati
   touch /.exrc
 
 # final image
-FROM gcr.io/distroless/static-debian12
+FROM gcr.io/distroless/static-debian12:nonroot
 
-COPY --from=go-build /casavue /vim .
-COPY --from=go-build /.vimrc /.exrc /root
-COPY --from=vue-build /build/dist ./frontend/dist/
-COPY --from=vue-build /build/src/assets ./frontend/src/assets
+WORKDIR /home/nonroot
+
+COPY --from=go-build /casavue /home/nonroot/
+COPY  --from=go-build /vim /
+COPY --from=go-build /.vimrc /.exrc /home/nonroot
+COPY --chown=nonroot:nonroot --from=vue-build /build/dist /home/nonroot/frontend/dist/
+COPY --chown=nonroot:nonroot --from=vue-build /build/src/assets /home/nonroot/frontend/src/assets
 
 ENTRYPOINT ["./casavue"]

@@ -29,17 +29,17 @@ FROM alpine:3.20.1
 
 WORKDIR /app
 
-COPY --from=go-build /casavue /app/
-COPY --from=go-build /.vimrc /.exrc /home/casavue/
-COPY --from=vue-build /build/dist ./frontend/dist/
-COPY --from=vue-build /build/src/assets ./frontend/src/assets
-
 RUN apk add --no-cache vim && \
   addgroup -g 10001 casavue && \
   adduser -D -u 10001 -G casavue casavue && \
   chown -R casavue:casavue /app
   
 USER casavue:casavue
+
+COPY --from=go-build /casavue /app/
+COPY --from=go-build /.vimrc /.exrc /home/casavue/
+COPY --chown=casavue:casavue --from=vue-build /build/dist ./frontend/dist/
+COPY --chown=casavue:casavue --from=vue-build /build/src/assets ./frontend/src/assets
 
 ENTRYPOINT ["/app/casavue"]
 
