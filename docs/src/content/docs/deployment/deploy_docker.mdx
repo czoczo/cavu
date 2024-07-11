@@ -7,6 +7,7 @@ sidebar:
 
 import { Aside, Code, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedDockerCompose from '../../../../../deployment/docker-compose/docker-compose.yaml?raw';
+import importedAppVersion from '../../../../../VERSION_APP.txt?raw';
 
 CasaVue is ment to be a index frontpage for applications hosted on a Kubernetes instance. Nevertheless, it can be run on [Docker](https://www.docker.com/) alone.
 
@@ -84,4 +85,5 @@ There is more to choose from [big list of http static server one-liners ](https:
 
 ## Compose file
 For better understaning in case of advanced users, here is the content of CasaVue docker compose file:
-<Code code={importedDockerCompose} lang="yaml" title="docker-compose.yaml" />
+<Code code={importedDockerCompose.replaceAll('latest',importedAppVersion)} lang="yaml" title="dimport type { resolveTripleslashReference } from 'typescript';
+ocker-compose.yaml" />

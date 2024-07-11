@@ -31,7 +31,6 @@ import { Aside, Code, Tabs, TabItem } from '@astrojs/starlight/components';
 import { FileTree } from '@astrojs/starlight/components';
 
 ---
-
 It can be useful to familiarise yourself with the contents of a project's Git repository before starting work on code development.
 
 The following view should help you get started.
@@ -45,7 +44,20 @@ The following view should help you get started.
   - docker-compose/ compose file for running standalone container and building static view
   - helm/ application Helm Chart
 - frontend/ GUI ([Vue](https://vuejs.org/)) source files for CasaVue
-- pages/ **this** docs - a standard [Starlight](https://starlight.astro.build/) project
+  - src/
+    - components/ // CasaVue frontend app elements
+      - BottomArea.vue
+      - colorsHandling.js
+      - DashBoard.vue
+      - ErrorBox.vue
+      - NamespaceItem.vue
+      - PWAInstallPrompt.vue
+      - PWAUpdatePrompt.vue
+      - ThemeSettings.vue
+      - TopArea.vue
+      - TopLogo.vue
+    - **App.vue** // Frontend main source file
+- docs/ **this** docs - a standard [Starlight](https://starlight.astro.build/) project
 - avatars.go {srcAvatars.slice(0, srcAvatars.indexOf("\n"))}
 - customisation.go {srcBranding.slice(0, srcBranding.indexOf("\n"))}
 - config_generator.py
@@ -64,4 +76,7 @@ The following view should help you get started.
 - parsing_helpers.go {srcParsingHelpers.slice(0, srcParsingHelpers.indexOf("\n"))}
 - README.md
 - statuses.go {srcStatuses.slice(0, srcStatuses.indexOf("\n"))}
+- VERSION_APP // Single point of truth about CasaVue version
+- VERSION_CHART // Single point of truth about CasaVue Helm Chart version
 </FileTree>
+
