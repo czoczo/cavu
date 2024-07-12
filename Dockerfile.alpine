@@ -33,6 +33,7 @@ WORKDIR /app
 
 RUN apk add --no-cache vim && \
   mkdir /app/config && \
+  mkdir /app/dist && \
   addgroup -g 65532 casavue && \
   adduser -D -u 65532 -G casavue casavue && \
   chown -R casavue:casavue /app
