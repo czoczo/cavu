@@ -21,13 +21,13 @@ Create a new directory in your workspace and download `docker-compose.yaml` file
   <TabItem label="curl">
 ```console
 mkdir CasaVue && cd CasaVue && \
-curl https://raw.githubusercontent.com/czoczo/casavue/main/deployment/docker-compose/docker-compose.yaml
+curl https://raw.githubusercontent.com/czoczo/casavue/main/deployment/docker-compose/docker-compose.yaml > docker-compose.yaml
 ```
   </TabItem>
   <TabItem label="wget">
 ```console
 mkdir CasaVue && cd CasaVue && \
-curl https://raw.githubusercontent.com/czoczo/casavue/main/deployment/docker-compose/docker-compose.yaml
+wget https://raw.githubusercontent.com/czoczo/casavue/main/deployment/docker-compose/docker-compose.yaml
 ```
   </TabItem>
 </Tabs>
@@ -85,5 +85,5 @@ There is more to choose from [big list of http static server one-liners ](https:
 
 ## Compose file
 For better understaning in case of advanced users, here is the content of CasaVue docker compose file:
-<Code code={importedDockerCompose.replaceAll('latest',importedAppVersion)} lang="yaml" title="dimport type { resolveTripleslashReference } from 'typescript';
-ocker-compose.yaml" />
+<Code code={importedDockerCompose.replaceAll('latest',importedAppVersion.trim()+'-alpine')} lang="yaml" title="docker-compimport type { transpileModule } from 'typescript';
+ose.yaml" />

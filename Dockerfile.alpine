@@ -1,4 +1,4 @@
-# Debian based image, recommended for GitHub Actions usage
+# Alpine based image, recommended for GitHub Actions and Docker Compose usage
 
 # first stage builds Vue frontend
 FROM node:18 as vue-build
@@ -32,6 +32,7 @@ FROM alpine:3.20.1
 WORKDIR /app
 
 RUN apk add --no-cache vim && \
+  mkdir /app/config && \
   addgroup -g 65532 casavue && \
   adduser -D -u 65532 -G casavue casavue && \
   chown -R casavue:casavue /app

@@ -10,17 +10,17 @@ services:
     networks:
       - casavue
     volumes:
-      - casavue-config:/config
+      - casavue-config:/app/config
 
   # enables editing main.yaml config file inside docker volume
   # run comand:
   # docker compose run edit-main && reset
   edit-main:
     image: casavue:latest
-    entrypoint: "/vim"
-    command: "/config/main.yaml"
+    entrypoint: "vim"
+    command: "/app/config/main.yaml"
     volumes:
-      - casavue-config:/config
+      - casavue-config:/app/config
     profiles:
       - no-auto-start
     stdin_open: true
@@ -31,10 +31,10 @@ services:
   # docker compose run edit-main && reset
   edit-items:
     image: casavue:latest
-    entrypoint: "/vim"
-    command: "/config/items.yaml"
+    entrypoint: "vim"
+    command: "/app/config/items.yaml"
     volumes:
-      - casavue-config:/config
+      - casavue-config:/app/config
     profiles:
       - no-auto-start
     stdin_open: true
@@ -49,8 +49,8 @@ services:
     profiles:
       - no-auto-start
     volumes:
-      - casavue-config:/config
-      - ./static:/dist
+      - casavue-config:/app/config
+      - ./static:/app/dist
 
 volumes:
   casavue-config:
