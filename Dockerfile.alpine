@@ -23,7 +23,7 @@ COPY ./*go .
 RUN go mod init casavue && \
   go mod tidy && \
   CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} go build -o /casavue . && \
-  echo 'set nocompatible' > /.vimrc && \
+  echo -e 'set nocompatible\nset nu' > /.vimrc && \
   touch /.exrc
 
 # final image

@@ -19,6 +19,9 @@ services:
     image: casavue:latest
     entrypoint: "vim"
     command: "/app/config/main.yaml"
+    environment:
+      COLS: $COLS
+      LINES: $LINES
     volumes:
       - casavue-config:/app/config
     profiles:
@@ -33,6 +36,9 @@ services:
     image: casavue:latest
     entrypoint: "vim"
     command: "/app/config/items.yaml"
+    environment:
+      COLS: $COLS
+      LINES: $LINES
     volumes:
       - casavue-config:/app/config
     profiles:

@@ -50,11 +50,11 @@ Since [defualt Docker Compose file for CasaVue](/deployment/deploy_docker#compos
 </Aside>
 Editing `main.yaml` config file
 ```console
-docker compose run edit-main; reset
+COLUMNS="$(tput cols)" LINES="$(tput lines)" docker compose run edit-main; reset
 ```
 Editing `items.yaml` config file
 ```console
-docker compose run edit-items; reset
+COLUMNS="$(tput cols)" LINES="$(tput lines)" docker compose run edit-items; reset
 ```
 <Aside type="tip" title="For VIM newbies">
   In case you never used VIM before, here is a quick start:
