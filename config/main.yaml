@@ -42,8 +42,8 @@ content_filters:
     # catches all values by default
     pattern: "^.*$"
     
-# Allows connections to servers with an invalid TLS certificate.
-# Don't turn it on unless you know what you're doing.
+# Allows connections to servers with an invalid TLS certificate
+# Don't turn it on unless you know what you're doing
 allow_skip_tls_verify: false
 
 logging:
