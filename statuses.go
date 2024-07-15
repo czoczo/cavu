@@ -63,6 +63,6 @@ func statusCheckHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Return the status code as the response
-	log.Info("Request to ", extractedUrl, ", ended with status: ", statusCode)
+	log.Debug("Request to ", extractedUrl, ", ended with status: ", statusCode)
 	fmt.Fprintf(w, "%d", statusCode)
 }

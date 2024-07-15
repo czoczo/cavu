@@ -5,6 +5,8 @@ package main
 import (
 	_ "embed"
 	"encoding/json"
+	"net/http"
+	"crypto/tls"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -55,6 +57,7 @@ type Logging struct {
 type Config struct {
 	Customisation        Customisation       `yaml:"customisation"`
 	Content_filters ContentFilters `yaml:"content_filters"`
+    Allow_skip_tls_verify bool `yaml:"allow_skip_tls_verify"`
 	Logging         Logging        `yaml:"logging"`
 }
 
@@ -104,6 +107,11 @@ func loadConfig() {
 		log.SetLevel(log.ErrorLevel)
 	default:
 		log.Fatal("Invalid log level")
+	}
+	
+	// set HTTP TLS verify mode
+	if config.Allow_skip_tls_verify {
+		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	}
 
 	// read staticItems file
