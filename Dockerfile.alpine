@@ -31,7 +31,7 @@ FROM alpine:3.20.1
 
 WORKDIR /app
 
-RUN apk add --no-cache vim && \
+RUN apk add --no-cache vim tar && \
   mkdir /app/config && \
   mkdir /app/dist && \
   addgroup -g 65532 casavue && \
