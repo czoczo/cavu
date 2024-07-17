@@ -17,10 +17,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       
-      - name: Set tag variables
-        run: |
-          TAG="$(cat VERSION_APP.txt | tr -dc '[0-9].')-${{ matrix.flavour }}"
-          echo "TAG=$TAG" >> $GITHUB_ENV
+    - name: Set tag variables
+      run: |
+        TAG="$(cat VERSION_APP.txt | tr -dc '[0-9].')-${{ matrix.flavour }}"
+        echo "TAG=$TAG" >> $GITHUB_ENV
 
     - uses: wangyoucao577/go-release-action@v1
       with:
