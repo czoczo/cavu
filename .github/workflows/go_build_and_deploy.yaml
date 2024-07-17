@@ -14,10 +14,18 @@ jobs:
     name: release linux/amd64
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+      - name: Set tag variables
+        run: |
+          TAG="$(cat VERSION_APP.txt | tr -dc '[0-9].')-${{ matrix.flavour }}"
+          echo "TAG=$TAG" >> $GITHUB_ENV
+
     - uses: wangyoucao577/go-release-action@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: linux
         goarch: amd64
         pre_command: go mod init casavue && go mod tidy
+        release_tag: ${{ env.TAG }}
