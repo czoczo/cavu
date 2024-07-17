@@ -1,0 +1,45 @@
+# Alpine based image, recommended for GitHub Actions and Docker Compose usage
+
+# first stage builds Vue frontend
+FROM node:18 as vue-build
+
+ARG TARGETARCH
+
+WORKDIR /build
+COPY ./frontend .
+
+RUN npm install -g pnpm && \
+  pnpm install && \
+  pnpm run build
+
+# second stage builds Go backend
+FROM golang:1.22-bookworm as go-build
+
+WORKDIR /go/src/app
+COPY ./config /go/src/app/config
+COPY ./*txt .
+COPY ./*go .
+
+RUN go mod init casavue && \
+  go mod tidy && \
+  CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} go build -o /casavue . && \
+  echo -e 'set nocompatible\nset nu' > /.vimrc && \
+  touch /.exrc
+
+# final image
+FROM alpine:3.20.1
+
+WORKDIR /app
+
+RUN apk add --no-cache vim tar && \
+  mkdir /app/config && \
+  mkdir /app/dist 
+  
+COPY --from=go-build /casavue /app/
+COPY --from=go-build /.vimrc /.exrc /home/casavue/
+COPY --chown=casavue:casavue --from=vue-build /build/dist ./frontend/dist/
+COPY --chown=casavue:casavue --from=vue-build /build/src/assets ./frontend/src/assets
+
+ENTRYPOINT ["/app/casavue"]
+
+HEALTHCHECK --interval=5s --timeout=5s --retries=3 CMD wget localhost:8080 -q --spider

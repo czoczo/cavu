@@ -31,11 +31,9 @@ FROM alpine:3.20.1
 
 WORKDIR /app
 
-RUN apk add --no-cache vim tar && \
+RUN apk add --no-cache vim && \
   mkdir /app/config && \
   mkdir /app/dist && \
-  mkdir -p /__w/_temp/ && \
-  chmod -R 777 /__w/ && \
   addgroup -g 65532 casavue && \
   adduser -D -u 65532 -G casavue casavue && \
   chown -R casavue:casavue /app
