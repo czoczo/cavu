@@ -12,7 +12,7 @@ import (
 
 func findIconGitHub(entry *DashEntry, nameValue string) {
 	if entry.IconURL != "" {
-		log.Debug("findIconGitHub function: IconURL already found.")
+		log.Debug("findIconGitHub function: IconURL already found: ", entry.IconURL)
 		return
 	}
 
@@ -26,21 +26,23 @@ func findIconGitHub(entry *DashEntry, nameValue string) {
 	svgUrl := ghUrl + "svg/" + name + ".svg"
 	_, err := checkUrlStatus(svgUrl)
 	if err == nil {
+		log.Debug("findIconGitHub function: found icon: ", svgUrl)
 		entry.IconURL = svgUrl
 		return
 	}
 	pngUrl := ghUrl + "png/" + name + ".png"
 	_, err = checkUrlStatus(pngUrl)
 	if err == nil {
+		log.Debug("findIconGitHub function: found icon: ", pngUrl)
 		entry.IconURL = pngUrl
 	}
 	return
 }
 
-func findHtmlTitle(entry *DashEntry) {
+func findHtmlTitle(name string, entry *DashEntry) {
 	title := ""
 	if entry.WebpageTitle != "" {
-		log.Debug("findHtmlTitle function: IconURL already found.")
+		log.Debug("findHtmlTitle function: WebpageTitle already found.")
 		return
 	}
 
@@ -71,6 +73,10 @@ func findHtmlTitle(entry *DashEntry) {
 	}
 
 	f(doc)
+	if title == "" {
+		title = name
+	}
+	log.Debug("findHtmlTitle function: returning:" + title)
 	entry.WebpageTitle = title
 	return
 }
@@ -161,6 +167,7 @@ func findHtmlIcon(entry *DashEntry, format string) {
 	if format == "png" && finalPngUrl != "" {
 		entry.IconURL = addPrefix(entry.URL, finalPngUrl)
 	}
+	log.Debug("findHtmlIcon function: found icon: ", entry.IconURL)
 	return
 }
 
@@ -198,7 +205,13 @@ func findHtmlIconDeanishe(entry *DashEntry) {
 		}
 	}
 
-	entry.IconURL = icons[0].URL
+	potentialIcon := icons[0].URL
+	_, err = checkUrlStatus(potentialIcon)
+	if err != nil {
+		return
+	}
+	entry.IconURL = potentialIcon
+	log.Debug("findHtmlIconDeanishe function: found icon: ", entry.IconURL)
 
 	return
 }

@@ -18,14 +18,12 @@ func crawlItem(name string) {
 	}
 
 	// uncomment for debuging single item
-	//if name != "pi-hole" { return }
-
-	log.Info("Starting icon search for ", name)
+	//if name != "PoeticMetric" { return }
 
 	// echo metadata
 	log.Info("Starting icon crawl for '", name, "' at '", dashboardItem.URL)
 
-	findHtmlTitle(&dashboardItem)
+	findHtmlTitle(name, &dashboardItem)
 
 	for key, val := range dashboardItem.Labels {
 		// check for app.kubernetes.io/instance label
@@ -39,15 +37,25 @@ func crawlItem(name string) {
 			log.Debug("GitHub icon search, based on '", val, "' returned: ", dashboardItem.IconURL)
 		}
 	}
-
+	checkedNames := map[string]bool{}
+	
 	// check Icons on GitHub based on Ingress name
+	checkedNames[name] = true
 	findIconGitHub(&dashboardItem, strings.ToLower(name))
 
 	// check Icons on GitHub based on site title first word
-	findIconGitHub(&dashboardItem, processTitle(dashboardItem.WebpageTitle))
+	titleFirstWord := firstWord(dashboardItem.WebpageTitle)
+	if ! checkedNames[titleFirstWord] {
+		checkedNames[titleFirstWord] = true
+		findIconGitHub(&dashboardItem, titleFirstWord)
+	}
 
 	// check Icons on GitHub based on site title spaces to dashes
-	findIconGitHub(&dashboardItem, strings.ToLower(strings.ReplaceAll(dashboardItem.WebpageTitle, " ", "-")))
+	titleWithDashes := strings.ToLower(strings.ReplaceAll(dashboardItem.WebpageTitle, " ", "-"))
+	if ! checkedNames[titleWithDashes] {
+		checkedNames[titleWithDashes] = true
+		findIconGitHub(&dashboardItem, titleWithDashes)
+	}
 
 	// check header for PNG
 	findHtmlIcon(&dashboardItem, "png")
@@ -59,7 +67,11 @@ func crawlItem(name string) {
 	findHtmlIconDeanishe(&dashboardItem)
 
 	// check for first level of DNS domain
-	findIconGitHub(&dashboardItem, strings.Split(getHostFromURL(dashboardItem.URL), ".")[0])
+	addressPrefix := strings.Split(getHostFromURL(dashboardItem.URL), ".")[0]
+	if ! checkedNames[addressPrefix] {
+		checkedNames[addressPrefix] = true
+		findIconGitHub(&dashboardItem, addressPrefix)
+	}
 
 	// last resort - generate avatar
 	getGeneratedIcon(&dashboardItem, name)

@@ -44,7 +44,7 @@ content_filters:
     
 # Allows connections to servers with an invalid TLS certificate
 # Don't turn it on unless you know what you're doing
-allow_skip_tls_verify: false
+allow_skip_tls_verify: true
 
 logging:
 

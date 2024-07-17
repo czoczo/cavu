@@ -20,7 +20,7 @@ const (
 	staticApiPath         = "/api/v1"
 )
 
-func processTitle(input string) string {
+func firstWord(input string) string {
 	// Split the input string by spaces
 	input = strings.ToLower(input)
 	words := strings.Fields(input)
