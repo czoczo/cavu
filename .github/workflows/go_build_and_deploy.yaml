@@ -19,7 +19,7 @@ jobs:
       
     - name: Set tag variables
       run: |
-        TAG="$(cat VERSION_APP.txt | tr -dc '[0-9].')-${{ matrix.flavour }}"
+        TAG="$(cat VERSION_CHART.txt | tr -dc '[0-9].')-${{ matrix.flavour }}"
         echo "TAG=$TAG" >> $GITHUB_ENV
 
     - uses: wangyoucao577/go-release-action@v1
@@ -28,4 +28,4 @@ jobs:
         goos: linux
         goarch: amd64
         pre_command: go mod init casavue && go mod tidy
-        release_tag: ${{ env.TAG }}
+        release_tag: casavue-${{ env.TAG }}
