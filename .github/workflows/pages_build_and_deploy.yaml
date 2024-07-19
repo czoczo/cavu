@@ -32,6 +32,21 @@ jobs:
             index.yaml
           sparse-checkout-cone-mode: false
 
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: temp
+          sparse-checkout: |
+            deployment/docker-compose/docker-compose.yaml
+            VERSION_APP.txt
+          sparse-checkout-cone-mode: false
+      
+      - run: |
+          ls -al
+          find temp
+          export APP_VERSION="$(cat temp/VERSION_APP.txt)"
+          cat temp/deployment/docker-compose/docker-compose.yaml | sed "s/latest/$APP_VERSION/g" >> docs/public/docker-compose.yaml
+
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:
