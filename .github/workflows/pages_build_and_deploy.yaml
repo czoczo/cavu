@@ -42,8 +42,6 @@ jobs:
           sparse-checkout-cone-mode: false
       
       - run: |
-          ls -al
-          find temp
           export APP_VERSION="$(cat temp/VERSION_APP.txt)"
           cat temp/deployment/docker-compose/docker-compose.yaml | sed "s/latest/$APP_VERSION/g" >> docs/public/docker-compose.yaml
 

@@ -4,7 +4,7 @@ services:
   # run command:
   # docker compose up
   casavue:
-    image: ghcr.io/czoczo/cavue:latest-alpine-root
+    image: ghcr.io/czoczo/cavu:latest-alpine-root
     ports:
       - "8080:8080"
     networks:
@@ -16,7 +16,7 @@ services:
   # run comand:
   # docker compose run edit-main && reset
   edit-main:
-    image: ghcr.io/czoczo/cavue:latest-alpine-root
+    image: ghcr.io/czoczo/cavu:latest-alpine-root
     entrypoint: "vim"
     command: "/app/config/main.yaml"
     environment:
@@ -33,7 +33,7 @@ services:
   # run command:
   # docker compose run edit-main && reset
   edit-items:
-    image: ghcr.io/czoczo/cavue:latest-alpine-root
+    image: ghcr.io/czoczo/cavu:latest-alpine-root
     entrypoint: "vim"
     command: "/app/config/items.yaml"
     environment:
@@ -50,7 +50,7 @@ services:
   # run command:
   # docker compose run static
   static:
-    image: ghcr.io/czoczo/cavue:latest-alpine-root
+    image: ghcr.io/czoczo/cavu:latest-alpine-root
     command: "-static"
     profiles:
       - no-auto-start

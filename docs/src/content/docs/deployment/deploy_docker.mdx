@@ -21,13 +21,13 @@ Create a new directory in your workspace and download `docker-compose.yaml` file
   <TabItem label="curl">
 ```console
 mkdir CasaVue && cd CasaVue && \
-curl https://raw.githubusercontent.com/czoczo/casavue/main/deployment/docker-compose/docker-compose.yaml > docker-compose.yaml
+curl https://casavue.app/docker-compose.yaml > docker-compose.yaml
 ```
   </TabItem>
   <TabItem label="wget">
 ```console
 mkdir CasaVue && cd CasaVue && \
-wget https://raw.githubusercontent.com/czoczo/casavue/main/deployment/docker-compose/docker-compose.yaml
+wget https://casavue.app/docker-compose.yaml
 ```
   </TabItem>
 </Tabs>
@@ -50,11 +50,15 @@ Since [defualt Docker Compose file for CasaVue](/deployment/deploy_docker#compos
 </Aside>
 Editing `main.yaml` config file
 ```console
-COLUMNS="$(tput cols)" LINES="$(tput lines)" docker compose run edit-main; reset
+COLUMNS="$(tput cols)" \
+LINES="$(tput lines)" \
+docker compose run edit-main; reset
 ```
 Editing `items.yaml` config file
 ```console
-COLUMNS="$(tput cols)" LINES="$(tput lines)" docker compose run edit-items; reset
+COLUMNS="$(tput cols)" \
+LINES="$(tput lines)" \
+docker compose run edit-items; reset
 ```
 <Aside type="tip" title="For VIM newbies">
   In case you never used VIM before, here is a quick start:
@@ -65,6 +69,11 @@ COLUMNS="$(tput cols)" LINES="$(tput lines)" docker compose run edit-items; rese
 
   Should you want to learn more about VIM, visit https://openvim.com/ to go through online tutorial.
 </Aside>
+
+<Aside>
+You can use any method for accessing files in Docker `named volumes` in order to edit CasaVue configuration YAML files.
+</Aside>
+
 ### Static mode
 For whatever reason should you want to render CasaVue dashboard to HTML static content (e.g. for hosting on [GitHub Pages](https://pages.github.com/)), you can use CasaVue static generation mode. 
 <Aside type="tip">
@@ -85,5 +94,4 @@ There is more to choose from [big list of http static server one-liners ](https:
 
 ## Compose file
 For better understaning in case of advanced users, here is the content of CasaVue docker compose file:
-<Code code={importedDockerCompose.replaceAll('latest',importedAppVersion.trim()+'-alpine')} lang="yaml" title="docker-compimport type { transpileModule } from 'typescript';
-ose.yaml" />
+<Code code={importedDockerCompose.replaceAll('latest',importedAppVersion.trim()+'-alpine')} lang="yaml" title="docker-compose.yaml" />
