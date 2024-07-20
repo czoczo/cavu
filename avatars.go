@@ -13,6 +13,7 @@ import (
 )
 
 func getGeneratedIcon(entry *DashEntry, name string) {
+	log.Debug("Generating avatar for: ", name)
 	if entry.IconURL != "" {
 		return
 	}

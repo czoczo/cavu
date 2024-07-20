@@ -11,6 +11,7 @@ import (
 )
 
 func findIconGitHub(entry *DashEntry, nameValue string) {
+	log.Debug("findIconGitHub looking up: ", nameValue)
 	if entry.IconURL != "" {
 		log.Debug("findIconGitHub function: IconURL already found: ", entry.IconURL)
 		return
@@ -40,6 +41,7 @@ func findIconGitHub(entry *DashEntry, nameValue string) {
 }
 
 func findHtmlTitle(name string, entry *DashEntry) {
+	log.Debug("findHtmlTitle looking up item:", name)
 	title := ""
 	if entry.WebpageTitle != "" {
 		log.Debug("findHtmlTitle function: WebpageTitle already found.")
@@ -78,10 +80,10 @@ func findHtmlTitle(name string, entry *DashEntry) {
 	}
 	log.Debug("findHtmlTitle function: returning:" + title)
 	entry.WebpageTitle = title
-	return
 }
 
 func findHtmlIcon(entry *DashEntry, format string) {
+	log.Debug("findHtmlIcon looking up: ", entry.URL)
 	if entry.IconURL != "" {
 		log.Debug("findHtmlIcon function: IconURL already found.")
 		return
@@ -172,6 +174,7 @@ func findHtmlIcon(entry *DashEntry, format string) {
 }
 
 func findHtmlIconDeanishe(entry *DashEntry) {
+	log.Debug("findHtmlIcon looking up: ", entry.URL)
 	if entry.IconURL != "" {
 		log.Debug("findHtmlIcon function: IconURL already found.")
 		return

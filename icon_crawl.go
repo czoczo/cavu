@@ -8,6 +8,9 @@ import (
 )
 
 func crawlItem(name string) {
+
+	// in static generation mode wait,
+	// for all items to complete before exiting
 	if *staticMode {
 		defer wg.Done()
 	}
