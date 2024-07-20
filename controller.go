@@ -7,10 +7,12 @@ import (
 	"fmt"
 	log "github.com/sirupsen/logrus"
 	"io"
+	"path"
 	"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
@@ -86,7 +88,16 @@ func downloadIcon(fullURLFile string) string {
 	}
 
 	// Download content and save to file
-	resp, err := client.Get(fullURLFile)
+	domain := strings.Join(strings.Split(fullURLFile,"/")[:3],"/")
+	endpoint := strings.Join(strings.Split(fullURLFile,"/")[3:],"/")
+	log.Debug("DOMAIN: ", domain)
+	log.Debug("ENDPOI: ", endpoint)
+	re := regexp.MustCompile(`^(\.+/)+`)
+	endpoint = re.ReplaceAllString(endpoint, "")
+	log.Debug("ENDPOI: ", path.Clean(endpoint))
+	downloadURL := domain+"/"+endpoint
+	log.Debug("Downloading icon from URL: ", downloadURL)
+	resp, err := client.Get(downloadURL)
 	if err != nil {
 		log.Fatal("Error downloading content: ", err)
 	}
