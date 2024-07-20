@@ -175,7 +175,7 @@ func findHtmlIcon(entry *DashEntry, format string) {
 }
 
 func findHtmlIconDeanishe(entry *DashEntry) {
-	log.Debug("findHtmlIcon looking up: ", entry.URL)
+	log.Debug("fingHtmlIconDeanishe looking up: ", entry.URL)
 	if entry.IconURL != "" {
 		log.Debug("findHtmlIcon function: IconURL already found.")
 		return
@@ -198,6 +198,7 @@ func findHtmlIconDeanishe(entry *DashEntry) {
 	}
 
 	if len(icons) < 1 {
+		log.Debug("findHtmlIconDeanishe function, did not find any icons for: ", entry.URL)
 		return
 	}
 
@@ -205,6 +206,7 @@ func findHtmlIconDeanishe(entry *DashEntry) {
 	for _, i := range icons {
 		if strings.HasPrefix(i.MimeType, "image/svg") {
 			entry.IconURL = i.URL
+			log.Debug("findHtmlIconDeanishe function: found svg icon: ", i.URL)
 			return
 		}
 	}
@@ -212,10 +214,9 @@ func findHtmlIconDeanishe(entry *DashEntry) {
 	potentialIcon := icons[0].URL
 	_, err = checkUrlStatus(potentialIcon)
 	if err != nil {
+		log.Warn("findHtmlIconDeanishe function: errot reading icon URL for: ", entry.URL)
 		return
 	}
 	entry.IconURL = potentialIcon
 	log.Debug("findHtmlIconDeanishe function: found icon: ", entry.IconURL)
-
-	return
 }
