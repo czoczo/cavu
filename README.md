@@ -1,4 +1,4 @@
-> Customizable progressive web application for dynamic indexing of Kubernetes hosted applications (Ingress resources).
+> Customizable progressive web application for dynamic indexing of Kubernetes Ingress resources.
 ## Preview
 ![Alt Text](/demo.gif)
 

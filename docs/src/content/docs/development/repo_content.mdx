@@ -16,11 +16,11 @@ import srcDockerfileDistroless from '../../../../../Dockerfile.distroless?raw';
 import srcAvatars from '../../../../../avatars.go?raw';
 import srcBranding from '../../../../../customisation.go?raw';
 import srcConfig from '../../../../../config.go?raw';
-import srcController from '../../../../../controller.go?raw';
 import srcFileHandling from '../../../../../file_handling.go?raw';
 import srcGraphics from '../../../../../graphics.go?raw';
 import srcHttpServer from '../../../../../http_server.go?raw';
 import srcIconCrawl from '../../../../../icon_crawl.go?raw';
+import srcIconDownload from '../../../../../icon_download.go?raw';
 import srcIconExtraction from '../../../../../icon_extraction.go?raw';
 import srcKubernetes from '../../../../../kubernetes.go?raw';
 import srcMain from '../../../../../main.go?raw';
@@ -61,9 +61,7 @@ The following view should help you get started.
 - docs/ **this** docs - a standard [Starlight](https://starlight.astro.build/) project
 - avatars.go {srcAvatars.slice(0, srcAvatars.indexOf("\n"))}
 - customisation.go {srcBranding.slice(0, srcBranding.indexOf("\n"))}
-- config_generator.py
 - config.go {srcConfig.slice(0, srcConfig.indexOf("\n"))}
-- controller.go {srcController.slice(0, srcController.indexOf("\n"))}
 - Dockerfile.alpine-nonroot {srcDockerfileAlpineNonRoot.slice(0, srcDockerfileAlpineNonRoot.indexOf("\n"))}
 - Dockerfile.alpine-root {srcDockerfileAlpineRoot.slice(0, srcDockerfileAlpineRoot.indexOf("\n"))}
 - Dockerfile.distroless {srcDockerfileDistroless.slice(0, srcDockerfileDistroless.indexOf("\n"))}
@@ -71,6 +69,7 @@ The following view should help you get started.
 - graphics.go {srcGraphics.slice(0, srcGraphics.indexOf("\n"))}
 - http_server.go {srcHttpServer.slice(0, srcHttpServer.indexOf("\n"))}
 - icon_crawl.go {srcIconCrawl.slice(0, srcIconCrawl.indexOf("\n"))}
+- icon_download.go {srcIconDownload.slice(0, srcIconDownload.indexOf("\n"))}
 - icon_extraction.go {srcIconExtraction.slice(0, srcIconExtraction.indexOf("\n"))}
 - kubernetes.go {srcKubernetes.slice(0, srcKubernetes.indexOf("\n"))}
 - **main.go** {srcMain.slice(0, srcMain.indexOf("\n"))}
