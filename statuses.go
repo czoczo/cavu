@@ -1,4 +1,4 @@
-// implements HTTP requests (heathcheck + )
+// active HTTP checks for listed items
 
 package main
 

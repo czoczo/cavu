@@ -1,4 +1,4 @@
-# Alpine based image, recommended for GitHub Actions and Docker Compose usage
+# Alpine nonroot based image
 
 # first stage builds Vue frontend
 FROM node:18 as vue-build

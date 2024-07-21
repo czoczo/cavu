@@ -1,10 +1,13 @@
-// implements HTTP requests (heathcheck + )
+// implements algorithm for obtaining icons from found icon URLs
+// currently used only in static mode
+// https://casavue.app/deployment/deploy_docker/#static-mode
 
 package main
 
 import (
 	"io"
 	"os"
+	"regexp"
 	"net/url"
 	"strings"
 	"net/http"
@@ -63,15 +66,14 @@ func downloadIcon(fullURLFile string) string {
 		},
 	}
 
-	// Download content and save to file
+	// sanitize URL
 	domain := strings.Join(strings.Split(fullURLFile,"/")[:3],"/")
 	endpoint := strings.Join(strings.Split(fullURLFile,"/")[3:],"/")
-	log.Debug("DOMAIN: ", domain)
-	log.Debug("ENDPOI: ", endpoint)
 	re := regexp.MustCompile(`^(\.+/)+`)
 	endpoint = re.ReplaceAllString(endpoint, "")
-	log.Debug("ENDPOI: ", path.Clean(endpoint))
 	downloadURL := domain+"/"+endpoint
+	
+	// Download content and save to file
 	log.Debug("Downloading icon from URL: ", downloadURL)
 	resp, err := client.Get(downloadURL)
 	if err != nil {
