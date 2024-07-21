@@ -3,8 +3,11 @@
 package main
 
 import (
-	log "github.com/sirupsen/logrus"
+	"os"
+	"fmt"
+	"path/filepath"
 	"strings"
+	log "github.com/sirupsen/logrus"
 )
 
 func crawlItem(name string) {
@@ -21,7 +24,7 @@ func crawlItem(name string) {
 	}
 
 	// uncomment for debuging single item
-	//if name != "PoeticMetric" { return }
+	//if name != "item_name" { return }
 
 	// echo metadata
 	log.Info("Starting icon crawl for '", name, "' at '", dashboardItem.URL)
@@ -89,4 +92,27 @@ func crawlItem(name string) {
 	// write result
 	dashboardItems.write(name, dashboardItem)
 	log.Info("Icon crawl result for '", name, "': icon - ", dashboardItem.IconURL, ", title - ", dashboardItem.WebpageTitle)
+}
+
+
+
+func refreshItems() {
+	for _, name := range dashboardItems.getKeys() {
+		if *staticMode {
+			wg.Add(1)
+		}
+		go crawlItem(name)
+	}
+	if *staticMode {
+		wg.Wait()
+
+		// create folder for static api file if not existant
+		log.Debug("Creating folder if non-existent: ", filepath.Dir(compiledVuePath+"/"+staticApiPath))
+		os.MkdirAll(filepath.Dir(compiledVuePath+staticApiPath), os.ModePerm)
+
+		err := exportConfigAsJSONFile(dashboardItems.get(), compiledVuePath+staticApiPath)
+		if err != nil {
+			fmt.Printf("Error creating JSON file: %v\n", err)
+		}
+	}
 }

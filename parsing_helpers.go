@@ -124,3 +124,18 @@ func IsDigit(r rune) bool {
 func RemoveTrailingDigits(s string) string {
 	return strings.TrimRightFunc(s, IsDigit)
 }
+
+func firstWord(input string) string {
+	// Split the input string by spaces
+	input = strings.ToLower(input)
+	words := strings.Fields(input)
+
+	// Check if there are no spaces
+	if len(words) <= 1 {
+		// If no spaces, return the original string
+		return input
+	}
+
+	// If there are spaces, return only the first word
+	return words[0]
+}

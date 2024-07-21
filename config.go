@@ -188,6 +188,4 @@ func readStaticItems() {
 		log.Debug("Added static entry: ", staticItem.Name)
 	}
 	log.Info("Loaded static entries from configuration.")
-
-	refreshItems()
 }

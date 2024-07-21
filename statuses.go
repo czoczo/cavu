@@ -1,4 +1,4 @@
-// implements active HTTP health checks
+// implements HTTP requests (heathcheck + )
 
 package main
 

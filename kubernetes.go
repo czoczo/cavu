@@ -97,6 +97,7 @@ func getAndWatchKubernetesIngressItems() {
 		&v1.Ingress{},
 		time.Second*0,
 		cache.ResourceEventHandlerFuncs{
+
 			AddFunc: func(obj interface{}) {
 				ingress := obj.(*v1.Ingress)
 				if applyFilter(config.Content_filters.Namespace.Pattern, config.Content_filters.Namespace.Mode, ingress.Namespace) {
@@ -117,11 +118,13 @@ func getAndWatchKubernetesIngressItems() {
 				dashboardItems.write(name, dashboardItem)
 				go crawlItem(name)
 			},
+
 			DeleteFunc: func(obj interface{}) {
 				ingress := obj.(*v1.Ingress)
 				log.Info("Ingress deleted: ", ingress.Name)
 				dashboardItems.delete(ingress.Name)
 			},
+
 			UpdateFunc: func(oldObj, newObj interface{}) {
 				oldIngress := oldObj.(*v1.Ingress)
 				newIngress := newObj.(*v1.Ingress)

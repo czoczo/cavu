@@ -14,6 +14,9 @@ const (
 	configFilePath  = "./config/main.yaml"
 	itemsFilePath   = "./config/items.yaml"
 	staticFilesPath = "./frontend"
+	generatedAvatarsPath  = "./avatars"
+	downloadedAvatarsPath = "./downloadedAvatars"
+	staticApiPath         = "/api/v1"
 	compiledVuePath = staticFilesPath + "/dist"
 	sourceVuePath   = staticFilesPath + "/src"
 )
@@ -38,6 +41,9 @@ func main() {
 
 	// config.go
 	loadConfig()
+
+	// icon_crawl.go
+	refreshItems()
 
 	// customisation.go
 	updateFrontendFiles()
