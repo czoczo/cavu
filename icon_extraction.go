@@ -164,21 +164,23 @@ func findHtmlIcon(entry *DashEntry, format string) {
 
 	f(doc)
 	if format == "svg" && finalSvgUrl != "" {
-	    _, err = checkUrlStatus(finalSvgUrl)
-	    if err != nil {
-	    	log.Warn("findHtmlIcon function: error reading icon URL for: ", entry.URL)
-	    	return
-	    }
-		entry.IconURL = addPrefix(entry.URL, finalSvgUrl)
+		prefixedFinalSvgUrl := addPrefix(entry.URL, finalSvgUrl)
+		_, err = checkUrlStatus(prefixedFinalSvgUrl)
+		if err != nil {
+			log.Warn("findHtmlIcon function: error reading icon URL for: ", prefixedFinalSvgUrl)
+			return
+		}
+		entry.IconURL = prefixedFinalSvgUrl
 		log.Debug("findHtmlIcon function, found icon: ", entry.IconURL)
 	}
 	if format == "png" && finalPngUrl != "" {
-	    _, err = checkUrlStatus(finalPngUrl)
-	    if err != nil {
-	    	log.Warn("findHtmlIcon function: error reading icon URL for: ", entry.URL)
-	    	return
-	    }
-		entry.IconURL = addPrefix(entry.URL, finalPngUrl)
+		prefixedFinalPngUrl := addPrefix(entry.URL, finalPngUrl)
+		_, err = checkUrlStatus(prefixedFinalPngUrl)
+		if err != nil {
+			log.Warn("findHtmlIcon function: error reading icon URL for: ", prefixedFinalPngUrl)
+			return
+		}
+		entry.IconURL = prefixedFinalPngUrl
 		log.Debug("findHtmlIcon function, found icon: ", entry.IconURL)
 	}
 	log.Debug("findHtmlIcon function, icon not found")

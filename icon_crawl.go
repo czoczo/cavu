@@ -3,11 +3,11 @@
 package main
 
 import (
-	"os"
 	"fmt"
+	log "github.com/sirupsen/logrus"
+	"os"
 	"path/filepath"
 	"strings"
-	log "github.com/sirupsen/logrus"
 )
 
 func crawlItem(name string) {
@@ -44,21 +44,21 @@ func crawlItem(name string) {
 		}
 	}
 	checkedNames := map[string]bool{}
-	
+
 	// check Icons on GitHub based on Ingress name
 	checkedNames[name] = true
 	findIconGitHub(&dashboardItem, strings.ToLower(name))
 
 	// check Icons on GitHub based on site title first word
 	titleFirstWord := firstWord(dashboardItem.WebpageTitle)
-	if ! checkedNames[titleFirstWord] {
+	if !checkedNames[titleFirstWord] {
 		checkedNames[titleFirstWord] = true
 		findIconGitHub(&dashboardItem, titleFirstWord)
 	}
 
 	// check Icons on GitHub based on site title spaces to dashes
 	titleWithDashes := strings.ToLower(strings.ReplaceAll(dashboardItem.WebpageTitle, " ", "-"))
-	if ! checkedNames[titleWithDashes] {
+	if !checkedNames[titleWithDashes] {
 		checkedNames[titleWithDashes] = true
 		findIconGitHub(&dashboardItem, titleWithDashes)
 	}
@@ -74,7 +74,7 @@ func crawlItem(name string) {
 
 	// check for first level of DNS domain
 	addressPrefix := strings.Split(getHostFromURL(dashboardItem.URL), ".")[0]
-	if ! checkedNames[addressPrefix] {
+	if !checkedNames[addressPrefix] {
 		checkedNames[addressPrefix] = true
 		findIconGitHub(&dashboardItem, addressPrefix)
 	}
@@ -93,8 +93,6 @@ func crawlItem(name string) {
 	dashboardItems.write(name, dashboardItem)
 	log.Info("Icon crawl result for '", name, "': icon - ", dashboardItem.IconURL, ", title - ", dashboardItem.WebpageTitle)
 }
-
-
 
 func refreshItems() {
 	for _, name := range dashboardItems.getKeys() {

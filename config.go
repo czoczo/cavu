@@ -3,16 +3,17 @@
 package main
 
 import (
+	"crypto/tls"
 	_ "embed"
 	"encoding/json"
-	"net/http"
-	"crypto/tls"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"path/filepath"
 
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
+	"time"
 )
 
 //go:embed config/main.yaml
@@ -20,7 +21,6 @@ var default_config string
 
 //go:embed config/items.yaml
 var default_static_items string
-
 
 type Customisation struct {
 	Name   string `json:"name"`
@@ -34,9 +34,9 @@ type Customisation struct {
 }
 
 type Data struct {
-	Version    string   `json:"version"`
-	StaticMode bool     `json:"staticMode"`
-	Customisation   Customisation `json:"customisation"`
+	Version       string        `json:"version"`
+	StaticMode    bool          `json:"staticMode"`
+	Customisation Customisation `json:"customisation"`
 }
 
 type Filter struct {
@@ -55,10 +55,10 @@ type Logging struct {
 
 // Config represents the overall structure of the YAML file
 type Config struct {
-	Customisation        Customisation       `yaml:"customisation"`
-	Content_filters ContentFilters `yaml:"content_filters"`
-    Allow_skip_tls_verify bool `yaml:"allow_skip_tls_verify"`
-	Logging         Logging        `yaml:"logging"`
+	Customisation         Customisation  `yaml:"customisation"`
+	Content_filters       ContentFilters `yaml:"content_filters"`
+	Allow_skip_tls_verify bool           `yaml:"allow_skip_tls_verify"`
+	Logging               Logging        `yaml:"logging"`
 }
 
 // Item represents a single item in the YAML structure
@@ -108,10 +108,16 @@ func loadConfig() {
 	default:
 		log.Fatal("Invalid log level")
 	}
-	
+
 	// set HTTP TLS verify mode
 	if config.Allow_skip_tls_verify {
-		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+		log.Warn("Disabling TLS checks")
+		//http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+		tr := &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
+		httpClient = &http.Client{Transport: tr,
+			Timeout: 5 * time.Second}
 	}
 
 	// read staticItems file
@@ -127,9 +133,9 @@ func loadConfig() {
 	}
 
 	data := Data{
-		Version:    version,
-		StaticMode: *staticMode,
-		Customisation:   config.Customisation,
+		Version:       version,
+		StaticMode:    *staticMode,
+		Customisation: config.Customisation,
 	}
 
 	// create config file for Vue frontend

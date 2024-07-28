@@ -7,16 +7,17 @@ import (
 	log "github.com/sirupsen/logrus"
 	"net/http"
 	"net/url"
-	"time"
+	// "time"
 )
 
 func checkUrlStatus(url string) (int, error) {
-	client := http.Client{
-		Timeout: 3 * time.Second,
-	}
+	//client := http.Client{
+	//	Timeout: 3 * time.Second,
+	//}
 
+	log.Debug("Checking URL ", url, " for status.")
 	for {
-		resp, err := client.Get(url)
+		resp, err := httpClient.Get(url)
 		if err != nil {
 			return -1, err
 		}

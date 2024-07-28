@@ -5,16 +5,15 @@
 package main
 
 import (
-	"io"
-	"os"
-	"regexp"
-	"net/url"
-	"strings"
-	"net/http"
-	"path/filepath"
 	log "github.com/sirupsen/logrus"
+	"io"
+	"net/http"
+	"net/url"
+	"os"
+	"path/filepath"
+	"regexp"
+	"strings"
 )
-
 
 func downloadIcon(fullURLFile string) string {
 
@@ -67,12 +66,12 @@ func downloadIcon(fullURLFile string) string {
 	}
 
 	// sanitize URL
-	domain := strings.Join(strings.Split(fullURLFile,"/")[:3],"/")
-	endpoint := strings.Join(strings.Split(fullURLFile,"/")[3:],"/")
+	domain := strings.Join(strings.Split(fullURLFile, "/")[:3], "/")
+	endpoint := strings.Join(strings.Split(fullURLFile, "/")[3:], "/")
 	re := regexp.MustCompile(`^(\.+/)+`)
 	endpoint = re.ReplaceAllString(endpoint, "")
-	downloadURL := domain+"/"+endpoint
-	
+	downloadURL := domain + "/" + endpoint
+
 	// Download content and save to file
 	log.Debug("Downloading icon from URL: ", downloadURL)
 	resp, err := client.Get(downloadURL)

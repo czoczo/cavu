@@ -25,7 +25,7 @@ func createDashEntryFromIngress(it *v1.Ingress) (string, DashEntry) {
 	name := it.Name
 	description := ""
 	iconURL := ""
-	
+
 	if len(it.Spec.TLS) > 0 {
 		protocol = "https://"
 	}
@@ -109,9 +109,9 @@ func getAndWatchKubernetesIngressItems() {
 					return
 				}
 				_, annotationPresent := ingress.Annotations["casavue.app/enable"]
-				if config.Content_filters.Item.Mode == "ingressAnnotation" && ! annotationPresent {
+				if config.Content_filters.Item.Mode == "ingressAnnotation" && !annotationPresent {
 					log.Debug("Skipping item '" + ingress.Name + "' due to Ingress Annotation mode and lack of annotation.")
-					return					
+					return
 				}
 				log.Info("Ingress added: ", ingress.Name)
 				name, dashboardItem := createDashEntryFromIngress(ingress)
@@ -128,9 +128,9 @@ func getAndWatchKubernetesIngressItems() {
 			UpdateFunc: func(oldObj, newObj interface{}) {
 				oldIngress := oldObj.(*v1.Ingress)
 				newIngress := newObj.(*v1.Ingress)
-				
+
 				dashboardItems.delete(oldIngress.Name)
-				
+
 				if applyFilter(config.Content_filters.Namespace.Pattern, config.Content_filters.Namespace.Mode, newIngress.Namespace) {
 					log.Debug("Skipping namespace '" + newIngress.Namespace + "' due to pattern")
 					return
@@ -140,9 +140,9 @@ func getAndWatchKubernetesIngressItems() {
 					return
 				}
 				_, annotationPresent := newIngress.Annotations["casavue.app/enable"]
-				if config.Content_filters.Item.Mode == "ingressAnnotation" && ! annotationPresent {
+				if config.Content_filters.Item.Mode == "ingressAnnotation" && !annotationPresent {
 					log.Debug("Skipping item '" + newIngress.Name + "' due to Ingress Annotation mode and lack of annotation.")
-					return					
+					return
 				}
 				log.Info("Ingress updated: ", oldIngress.Name, " -> ", newIngress.Name)
 				name, dashboardItem := createDashEntryFromIngress(newIngress)

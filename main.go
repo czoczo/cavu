@@ -6,19 +6,19 @@ import (
 	_ "embed"
 	"flag"
 	"net/http"
-	"time"
+	//	"time"
 	"sync"
 )
 
 const (
-	configFilePath  = "./config/main.yaml"
-	itemsFilePath   = "./config/items.yaml"
-	staticFilesPath = "./frontend"
+	configFilePath        = "./config/main.yaml"
+	itemsFilePath         = "./config/items.yaml"
+	staticFilesPath       = "./frontend"
 	generatedAvatarsPath  = "./avatars"
 	downloadedAvatarsPath = "./downloadedAvatars"
 	staticApiPath         = "/api/v1"
-	compiledVuePath = staticFilesPath + "/dist"
-	sourceVuePath   = staticFilesPath + "/src"
+	compiledVuePath       = staticFilesPath + "/dist"
+	sourceVuePath         = staticFilesPath + "/src"
 )
 
 //go:embed VERSION_APP.txt
@@ -28,10 +28,11 @@ var config Config
 var staticItems StaticItems
 var staticMode *bool
 var wg sync.WaitGroup
-var httpClient = &http.Client{
-	Timeout: 5 * time.Second,
-}
+var httpClient *http.Client
 
+//= &http.Client{
+//	Timeout: 5 * time.Second,
+//}
 
 func main() {
 	staticMode = flag.Bool("static", false, "Single shot static content dashboard generation.")

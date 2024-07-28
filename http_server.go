@@ -3,10 +3,10 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
 	"encoding/json"
+	"fmt"
 	log "github.com/sirupsen/logrus"
+	"net/http"
 )
 
 func initHttpServer() {

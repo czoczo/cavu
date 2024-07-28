@@ -30,10 +30,10 @@ func getSizeFromString(str string) int {
 
 func getHostFromURL(inputUrl string) string {
 	url, err := url.Parse(inputUrl)
-    if err != nil {
-        log.Error(err)
+	if err != nil {
+		log.Error(err)
 		return ""
-    }	
+	}
 
 	return url.Host
 }
