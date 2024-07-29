@@ -7,13 +7,32 @@ package main
 import (
 	log "github.com/sirupsen/logrus"
 	"io"
-	//"net/http"
+	"net/http"
 	"net/url"
+	"crypto/tls"
 	"os"
 	"path/filepath"
 	"regexp"
+	"time"
 	"strings"
 )
+
+func initHttpClient(tlsSkipVerify bool) {
+	if tlsSkipVerify {
+        log.Warn("Disabling TLS checks")
+	}
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: tlsSkipVerify},
+	}
+	httpClient = &http.Client{
+		Transport: tr,
+		Timeout: 30 * time.Second,
+		CheckRedirect: func(r *http.Request, via []*http.Request) error {
+			r.URL.Opaque = r.URL.Path
+			return nil
+		},
+	}
+}
 
 func downloadIcon(fullURLFile string) string {
 

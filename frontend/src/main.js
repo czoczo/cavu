@@ -9,8 +9,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faEye } from '@fortawesome/free-solid-svg-icons'
-import { faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { faBrush } from '@fortawesome/free-solid-svg-icons'
 import { faGear } from '@fortawesome/free-solid-svg-icons'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
@@ -20,10 +18,10 @@ import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { faLockOpen } from '@fortawesome/free-solid-svg-icons'
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons'
+import { faMinimize } from '@fortawesome/free-solid-svg-icons'
+import { faMaximize } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
-library.add(faEye)
-library.add(faEyeSlash)
 library.add(faBrush)
 library.add(faGear)
 library.add(faCircleXmark)
@@ -33,6 +31,8 @@ library.add(faLock)
 library.add(faTriangleExclamation)
 library.add(faLockOpen)
 library.add(faCircleQuestion)
+library.add(faMinimize)
+library.add(faMaximize)
 
 //createApp(App)
 //.component('font-awesome-icon', FontAwesomeIcon)

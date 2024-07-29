@@ -3,17 +3,14 @@
 package main
 
 import (
-	"crypto/tls"
 	_ "embed"
 	"encoding/json"
 	"io/ioutil"
-	"net/http"
 	"os"
 	"path/filepath"
 
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
-	"time"
 )
 
 //go:embed config/main.yaml
@@ -110,21 +107,7 @@ func loadConfig() {
 	}
 
 	// set HTTP TLS verify mode
-	if config.Allow_skip_tls_verify {
-		log.Warn("Disabling TLS checks")
-		//http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
-		tr := &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		}
-		httpClient = &http.Client{
-			Transport: tr,
-			Timeout: 5 * time.Second,
-		    CheckRedirect: func(r *http.Request, via []*http.Request) error {
-		    	r.URL.Opaque = r.URL.Path
-		    	return nil
-		    },
-		}
-	}
+	initHttpClient(config.Allow_skip_tls_verify)
 
 	// read staticItems file
 	yfile, err = ioutil.ReadFile(itemsFilePath)

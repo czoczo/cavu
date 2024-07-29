@@ -2,10 +2,10 @@
   <div id="toolbox">
   <input id="searchInput" v-model="searchText" placeholder="Search by name" autofocus /> | 
   <button @click="showAllNamespaces">
-    <font-awesome-icon icon="fa-solid fa-eye" />
+    <font-awesome-icon icon="fa-solid fa-maximize" />
   </button>
   <button @click="hideAllNamespaces">
-    <font-awesome-icon icon="fa-solid fa-eye-slash" />
+    <font-awesome-icon icon="fa-solid fa-minimize" />
   </button>
   </div>
 
