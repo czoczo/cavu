@@ -116,8 +116,14 @@ func loadConfig() {
 		tr := &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 		}
-		httpClient = &http.Client{Transport: tr,
-			Timeout: 5 * time.Second}
+		httpClient = &http.Client{
+			Transport: tr,
+			Timeout: 5 * time.Second,
+		    CheckRedirect: func(r *http.Request, via []*http.Request) error {
+		    	r.URL.Opaque = r.URL.Path
+		    	return nil
+		    },
+		}
 	}
 
 	// read staticItems file

@@ -7,7 +7,7 @@ package main
 import (
 	log "github.com/sirupsen/logrus"
 	"io"
-	"net/http"
+	//"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -37,7 +37,7 @@ func downloadIcon(fullURLFile string) string {
 	// Validate URL
 	_, err := url.Parse(fullURLFile)
 	if err != nil {
-		log.Fatal("Error validating URL: ", err)
+		log.Error("Error validating URL: ", err)
 	}
 
 	// Build filename
@@ -58,12 +58,12 @@ func downloadIcon(fullURLFile string) string {
 	}
 	defer file.Close()
 
-	client := http.Client{
-		CheckRedirect: func(r *http.Request, via []*http.Request) error {
-			r.URL.Opaque = r.URL.Path
-			return nil
-		},
-	}
+	//client := http.Client{
+	//	CheckRedirect: func(r *http.Request, via []*http.Request) error {
+	//		r.URL.Opaque = r.URL.Path
+	//		return nil
+	//	},
+	//}
 
 	// sanitize URL
 	domain := strings.Join(strings.Split(fullURLFile, "/")[:3], "/")
@@ -74,9 +74,9 @@ func downloadIcon(fullURLFile string) string {
 
 	// Download content and save to file
 	log.Debug("Downloading icon from URL: ", downloadURL)
-	resp, err := client.Get(downloadURL)
+	resp, err := httpClient.Get(downloadURL)
 	if err != nil {
-		log.Fatal("Error downloading content: ", err)
+		log.Error("Error downloading content: ", err)
 	}
 	defer resp.Body.Close()
 
