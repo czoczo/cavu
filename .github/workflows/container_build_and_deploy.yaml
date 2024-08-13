@@ -82,6 +82,9 @@ jobs:
           image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
           format: 'sarif'
           output: 'trivy-results.sarif'
+          hide-progress: true
+          exit-code: '1'
+          severity: 'MEDIUM,HIGH,CRITICAL'
 
       - name: Upload Trivy scan results to GitHub Security tab
         if: success() || failure()

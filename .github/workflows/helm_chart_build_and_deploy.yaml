@@ -27,12 +27,11 @@ jobs:
         with:
           scan-type: 'config'
           #scanners: misconfig,vuln,secret
-          hide-progress: true
           format: 'sarif'
           output: 'trivy-results.sarif'
-          #exit-code: '1'
-          ignore-unfixed: true
-          severity: 'CRITICAL,HIGH'
+          hide-progress: true
+          exit-code: '1'
+          severity: 'MEDIUM,HIGH,CRITICAL'
 
       - name: Upload Trivy scan results to GitHub Security tab
         if: success() || failure()
