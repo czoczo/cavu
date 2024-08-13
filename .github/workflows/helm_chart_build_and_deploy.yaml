@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Run Trivy vulnerability scanner for config scan
+      - name: Run Trivy vulnerability scanner to index vulnerabilities 
         uses: aquasecurity/trivy-action@0.23.0
         with:
           scan-type: 'config'
@@ -30,9 +30,6 @@ jobs:
           format: 'sarif'
           output: 'trivy-results.sarif'
           hide-progress: true
-          exit-code: '1'
-          #severity: 'HIGH,CRITICAL'
-          severity: 'CRITICAL'
 
       - name: Upload Trivy scan results to GitHub Security tab
         if: success() || failure()
@@ -40,6 +37,15 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
         
+      - name: Run Trivy vulnerability scanner to fail on HIGH and CRITICAL
+        uses: aquasecurity/trivy-action@0.23.0
+        with:
+          scan-type: 'config'
+          #scanners: misconfig,vuln,secret
+          hide-progress: true
+          exit-code: '1'
+          severity: 'HIGH,CRITICAL'
+          
       - name: Install Helm
         uses: azure/setup-helm@v4
 
