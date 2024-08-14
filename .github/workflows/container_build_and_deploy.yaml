@@ -65,14 +65,14 @@ jobs:
             ${{ env.TAG }}
             ${{ env.LATEST }}
             
-      - name: Build and push Docker image
+      - name: Build Docker image
         id: push
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
           file: Dockerfile.${{ matrix.flavour }}
           platforms: linux/amd64,linux/arm64
-          push: true
+          output: docker
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       
@@ -83,8 +83,6 @@ jobs:
           format: 'sarif'
           output: 'trivy-results.sarif'
           hide-progress: true
-          #exit-code: '1'
-          #severity: 'MEDIUM,HIGH,CRITICAL'
 
       - name: Upload Trivy scan results to GitHub Security tab
         if: success() || failure()
@@ -99,6 +97,17 @@ jobs:
           hide-progress: true
           exit-code: '1'
           severity: 'MEDIUM,HIGH,CRITICAL'
+            
+      - name: Push Docker image
+        id: push
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
+          file: Dockerfile.${{ matrix.flavour }}
+          platforms: linux/amd64,linux/arm64
+          output: registry
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
