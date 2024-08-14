@@ -26,7 +26,6 @@ jobs:
         uses: aquasecurity/trivy-action@0.23.0
         with:
           scan-type: 'config'
-          #scanners: misconfig,vuln,secret
           format: 'sarif'
           output: 'trivy-results.sarif'
           hide-progress: true
@@ -41,7 +40,6 @@ jobs:
         uses: aquasecurity/trivy-action@0.23.0
         with:
           scan-type: 'config'
-          #scanners: misconfig,vuln,secret
           hide-progress: true
           exit-code: '1'
           severity: 'HIGH,CRITICAL'

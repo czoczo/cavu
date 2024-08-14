@@ -1,2 +1,5 @@
 # CasaVue needs to write on filesystem for runtime avatar caching and PWA settings updates
 AVD-KSV-0014
+
+# CasaVue docker-compose needs root user to allow use of users uid while creating files
+AVD-DS-0002

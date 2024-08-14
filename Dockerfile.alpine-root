@@ -29,9 +29,6 @@ RUN go mod init casavue && \
 # final image
 FROM alpine:3.20.1
 
-# root image
-#trivy:ignore:AVD-DS-0002
-
 WORKDIR /app
 
 RUN apk add --no-cache vim tar && \
