@@ -79,7 +79,7 @@ jobs:
       - name: Run Trivy vulnerability scanner for created image to index vulnerabilities
         uses: aquasecurity/trivy-action@0.23.0
         with:
-          image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
+          image-ref: "${{ env.IMAGE_NAME }}:${{ env.TAG }}"
           format: 'sarif'
           output: 'trivy-results.sarif'
           hide-progress: true
