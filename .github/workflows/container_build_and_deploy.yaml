@@ -76,15 +76,15 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       
-      - name: Run Trivy vulnerability scanner for created image
+      - name: Run Trivy vulnerability scanner for created image to index vulnerabilities
         uses: aquasecurity/trivy-action@0.23.0
         with:
           image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
           format: 'sarif'
           output: 'trivy-results.sarif'
           hide-progress: true
-          exit-code: '1'
-          severity: 'MEDIUM,HIGH,CRITICAL'
+          #exit-code: '1'
+          #severity: 'MEDIUM,HIGH,CRITICAL'
 
       - name: Upload Trivy scan results to GitHub Security tab
         if: success() || failure()
@@ -92,6 +92,14 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
 
+      - name: Run Trivy vulnerability scanner to fail on HIGH and CRITICAL
+        uses: aquasecurity/trivy-action@0.23.0
+        with:
+          image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
+          hide-progress: true
+          exit-code: '1'
+          severity: 'MEDIUM,HIGH,CRITICAL'
+          
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:
