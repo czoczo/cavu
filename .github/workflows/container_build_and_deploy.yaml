@@ -73,10 +73,13 @@ jobs:
           file: Dockerfile.${{ matrix.flavour }}
           platforms: linux/amd64,linux/arm64
           # not using load: true, due to https://github.com/docker/buildx/issues/59
-          outputs: type=docker,dest=/tmp/casavue_image.tar
+          outputs: type=tar,dest=/tmp/casavue
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       
+      - run: find /tmp
+      - run: find /tmp/casavue
+
       - name: Run Trivy vulnerability scanner for created image to index vulnerabilities
         uses: aquasecurity/trivy-action@0.23.0
         with:
