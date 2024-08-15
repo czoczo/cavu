@@ -72,14 +72,14 @@ jobs:
           context: .
           file: Dockerfile.${{ matrix.flavour }}
           platforms: linux/amd64,linux/arm64
-          output: docker
+          load: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       
       - name: Run Trivy vulnerability scanner for created image to index vulnerabilities
         uses: aquasecurity/trivy-action@0.23.0
         with:
-          image-ref: "${{ env.IMAGE_NAME }}:${{ env.TAG }}"
+          image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
           format: 'sarif'
           output: 'trivy-results.sarif'
           hide-progress: true
@@ -105,7 +105,7 @@ jobs:
           context: .
           file: Dockerfile.${{ matrix.flavour }}
           platforms: linux/amd64,linux/arm64
-          output: registry
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           
