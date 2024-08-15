@@ -78,7 +78,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
       
       - run: find /tmp || true
-      - run: find /tmp/casavue || true
+      - run: ls -al /tmp || true
 
       - name: Run Trivy vulnerability scanner for created image to index vulnerabilities
         uses: aquasecurity/trivy-action@0.23.0
