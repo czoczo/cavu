@@ -85,6 +85,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.23.0
         with:
           # image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
+          scan-type: fs
           input: casavue_image.tar
           scan-ref: ${{ github.workspace }}
           format: 'sarif'
@@ -102,6 +103,7 @@ jobs:
         with:
           # image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
           input: casavue_image.tar
+          scan-type: fs
           scan-ref: ${{ github.workspace }}
           hide-progress: true
           exit-code: '1'
