@@ -85,6 +85,7 @@ jobs:
         with:
           # image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
           input: casavue_image.tar
+          scan-ref: .
           format: 'sarif'
           output: 'trivy-results.sarif'
           hide-progress: true
@@ -100,6 +101,7 @@ jobs:
         with:
           # image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
           input: casavue_image.tar
+          scan-ref: .
           hide-progress: true
           exit-code: '1'
           severity: 'MEDIUM,HIGH,CRITICAL'
