@@ -82,7 +82,11 @@ For whatever reason should you want to render CasaVue dashboard to HTML static c
 
 Generating static dashboard webpage:
 ```console
-docker compose run --rm static
+rm -rf static && mkdir static && \
+docker compose run \
+  -u $(id -u):$(id -g) \
+  --rm static && \
+chmod -R o-w static
 ```
 Directory `dist` should be created and contain generated static webpage.
 While being inside it, start HTTP server to test dashboard, for example:
