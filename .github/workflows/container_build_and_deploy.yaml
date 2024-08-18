@@ -73,7 +73,8 @@ jobs:
           file: Dockerfile.${{ matrix.flavour }}
           platforms: linux/amd64,linux/arm64
           # not using load: true, due to https://github.com/docker/buildx/issues/59
-          outputs: type=tar,dest=${{ github.workspace }}/casavue_image.tar
+          #outputs: type=tar,dest=${{ github.workspace }}/casavue_image.tar
+          outputs: type=docker,dest=${{ github.workspace }}/casavue_image.tar
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       
