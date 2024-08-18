@@ -40,7 +40,9 @@ COPY --from=go-build /.vimrc /.exrc /home/casavue/
 COPY --from=vue-build /build/dist ./frontend/dist/
 COPY --from=vue-build /build/src/assets ./frontend/src/assets
 
-RUN chmod -R o+w {config,dist,frontend}
+RUN chmod -R o+w config && \
+  chmod -R o+w dist && \
+  chmod -R o+w frontend
 
 ENTRYPOINT ["/app/casavue"]
 
