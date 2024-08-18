@@ -65,16 +65,17 @@ jobs:
             ${{ env.TAG }}
             ${{ env.LATEST }}
             
-      - name: Build Docker image
+      - name: Build Docker image for vulnerability test
         id: build
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
           file: Dockerfile.${{ matrix.flavour }}
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           # not using load: true, due to https://github.com/docker/buildx/issues/59
-          #outputs: type=tar,dest=${{ github.workspace }}/casavue_image.tar
-          outputs: type=docker,dest=${{ github.workspace }}/casavue_image.tar
+          # outputs: type=tar,dest=${{ github.workspace }}/casavue_image.tar
+          # outputs: type=docker,dest=${{ github.workspace }}/casavue_image.tar
+          load: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       
@@ -85,10 +86,10 @@ jobs:
       - name: Run Trivy vulnerability scanner for created image to index vulnerabilities
         uses: aquasecurity/trivy-action@0.23.0
         with:
-          # image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
+          image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
           #scan-type: image
           #image-ref: casavue_image.tar
-          input: "/github/workspace/casavue_image.tar"
+          #input: "/github/workspace/casavue_image.tar"
           format: 'sarif'
           output: 'trivy-results.sarif'
           hide-progress: true
@@ -102,13 +103,13 @@ jobs:
       - name: Run Trivy vulnerability scanner to fail on HIGH and CRITICAL
         uses: aquasecurity/trivy-action@0.23.0
         with:
-          # image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
+          image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}"
           #input: casavue_image.tar
           #scan-type: fs
           #scan-type: image
           #image-ref: casavue_image.tar
           #scan-ref: ${{ github.workspace }}
-          input: "/github/workspace/casavue_image.tar"
+          #input: "/github/workspace/casavue_image.tar"
           hide-progress: true
           exit-code: '1'
           severity: 'MEDIUM,HIGH,CRITICAL'
