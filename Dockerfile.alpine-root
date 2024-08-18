@@ -37,8 +37,10 @@ RUN apk add --no-cache vim tar && \
   
 COPY --from=go-build /casavue /app/
 COPY --from=go-build /.vimrc /.exrc /home/casavue/
-COPY --chown=casavue:casavue --from=vue-build /build/dist ./frontend/dist/
-COPY --chown=casavue:casavue --from=vue-build /build/src/assets ./frontend/src/assets
+COPY --from=vue-build /build/dist ./frontend/dist/
+COPY --from=vue-build /build/src/assets ./frontend/src/assets
+
+RUN chmod -R o+w {config,dist,frontend}
 
 ENTRYPOINT ["/app/casavue"]
 
