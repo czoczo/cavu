@@ -45,6 +45,16 @@ COPY --from=go-build /.vimrc /.exrc /home/casavue/
 COPY --chown=casavue:casavue --from=vue-build /build/dist ./frontend/dist/
 COPY --chown=casavue:casavue --from=vue-build /build/src/assets ./frontend/src/assets
 
+#RUN chmod -R o+w config && \
+#  chmod -R o+w dist && \
+#  chmod -R o+w frontend
+
+RUN chmod o+w frontend/dist && \
+  chmod o+w frontend/dist/manifest.json && \
+  chmod o+w frontend/dist/service-worker.js && \
+  chmod o+w frontend/dist/service-worker.js.map && \
+  chmod o+w frontend/dist/index.html #&& \
+
 ENTRYPOINT ["/app/casavue"]
 
 HEALTHCHECK --interval=5s --timeout=5s --retries=3 CMD wget localhost:8080 -q --spider

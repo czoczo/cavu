@@ -21,7 +21,7 @@ jobs:
   build-and-push-image:
     strategy:
       matrix:
-        flavour: [distroless, alpine-nonroot, alpine-root]
+        flavour: [distroless, alpine-nonroot]
     runs-on: ubuntu-latest
     # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
     #permissions:
